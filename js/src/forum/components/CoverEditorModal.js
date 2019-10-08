@@ -10,7 +10,12 @@ export default class CoverEditorModal extends Modal {
   init() {
     super.init();
 
+    this.alert = Alert.component({
+      children: app.translator.trans('sycho-profile-cover.forum.notice')
+    });
+
     this.loading = false;
+    this.context = '';
   }
 
   content() {
@@ -33,7 +38,7 @@ export default class CoverEditorModal extends Modal {
   }
 
   title() {
-    return 'Cover Settings';
+    return app.translator.trans('sycho-profile-cover.forum.edit_cover');
   }
 
   fieldsItems() {
@@ -44,14 +49,6 @@ export default class CoverEditorModal extends Modal {
         label: '',
         className: 'Cover-actions',
         children: this.controlItems().toArray()
-      })
-    );
-
-    items.add('settings',
-      FieldSet.component({
-        label: 'Settings',
-        className: 'Cover-settings',
-        children: this.settingsItems().toArray()
       })
     );
 
@@ -74,23 +71,8 @@ export default class CoverEditorModal extends Modal {
       Button.component({
         icon: 'fas fa-times',
         className: 'Button',
-        children: app.translator.trans('core.forum.user.avatar_remove_button')
-      })
-    );
-
-    return items;
-  }
-
-  settingsItems() {
-    const items = new ItemList();
-
-    items.add('keepColor',
-      Switch.component({
-        children: 'Keep color effect',
-        state: false,
-        onchange: (value, component) => {
-          // code..
-        }
+        children: app.translator.trans('core.forum.user.avatar_remove_button'),
+        onclick: this.remove.bind(this)
       })
     );
 
@@ -112,6 +94,7 @@ export default class CoverEditorModal extends Modal {
     data.append('cover', file);
 
     this.loading = true;
+    this.context = 'added';
     m.redraw();
 
     app.request({
@@ -125,27 +108,36 @@ export default class CoverEditorModal extends Modal {
     );
   }
 
+  remove() {
+    this.loading = true;
+    this.context = 'removed';
+    m.redraw();
+
+    app.request({
+      method: 'DELETE',
+      url: app.forum.attribute('apiUrl') + '/users/' + this.props.user.id() + '/cover'
+    }).then(
+      this.success.bind(this),
+      this.failure.bind(this)
+    );
+  }
+
   success(response) {
     app.store.pushPayload(response);
 
-    this.showAlert(true);
+    this.showAlert('success');
     this.loading = false;
     m.redraw();
   }
 
   failure(response) {
-    this.showAlert(false);
+    this.showAlert('error');
     this.loading = false;
     m.redraw();
   }
 
-  showAlert(success) {
-    let label = success ? 'Profile cover updated.' : 'Image could not be uploaded.';
-    let type = success ? 'success' : 'error';
-
-    this.alert = Alert.component({
-      children: label,
-      type: type
-    });
+  showAlert(type) {
+    this.alert.props.children = app.translator.trans(`sycho-profile-cover.forum.${this.context}.${type}`);
+    this.alert.props.type = type;
   }
 }

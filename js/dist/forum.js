@@ -197,7 +197,11 @@ function (_Modal) {
   _proto.init = function init() {
     _Modal.prototype.init.call(this);
 
+    this.alert = flarum_components_Alert__WEBPACK_IMPORTED_MODULE_1___default.a.component({
+      children: app.translator.trans('sycho-profile-cover.forum.notice')
+    });
     this.loading = false;
+    this.context = '';
   };
 
   _proto.content = function content() {
@@ -217,7 +221,7 @@ function (_Modal) {
   };
 
   _proto.title = function title() {
-    return 'Cover Settings';
+    return app.translator.trans('sycho-profile-cover.forum.edit_cover');
   };
 
   _proto.fieldsItems = function fieldsItems() {
@@ -226,11 +230,6 @@ function (_Modal) {
       label: '',
       className: 'Cover-actions',
       children: this.controlItems().toArray()
-    }));
-    items.add('settings', flarum_components_FieldSet__WEBPACK_IMPORTED_MODULE_5___default.a.component({
-      label: 'Settings',
-      className: 'Cover-settings',
-      children: this.settingsItems().toArray()
     }));
     return items;
   };
@@ -246,18 +245,8 @@ function (_Modal) {
     items.add('remove', flarum_components_Button__WEBPACK_IMPORTED_MODULE_3___default.a.component({
       icon: 'fas fa-times',
       className: 'Button',
-      children: app.translator.trans('core.forum.user.avatar_remove_button')
-    }));
-    return items;
-  };
-
-  _proto.settingsItems = function settingsItems() {
-    var items = new flarum_utils_ItemList__WEBPACK_IMPORTED_MODULE_6___default.a();
-    items.add('keepColor', flarum_components_Switch__WEBPACK_IMPORTED_MODULE_4___default.a.component({
-      children: 'Keep color effect',
-      state: false,
-      onchange: function onchange(value, component) {// code..
-      }
+      children: app.translator.trans('core.forum.user.avatar_remove_button'),
+      onclick: this.remove.bind(this)
     }));
     return items;
   };
@@ -276,6 +265,7 @@ function (_Modal) {
     var data = new FormData();
     data.append('cover', file);
     this.loading = true;
+    this.context = 'added';
     m.redraw();
     app.request({
       method: 'POST',
@@ -287,26 +277,32 @@ function (_Modal) {
     }).then(this.success.bind(this), this.failure.bind(this));
   };
 
+  _proto.remove = function remove() {
+    this.loading = true;
+    this.context = 'removed';
+    m.redraw();
+    app.request({
+      method: 'DELETE',
+      url: app.forum.attribute('apiUrl') + '/users/' + this.props.user.id() + '/cover'
+    }).then(this.success.bind(this), this.failure.bind(this));
+  };
+
   _proto.success = function success(response) {
     app.store.pushPayload(response);
-    this.showAlert(true);
+    this.showAlert('success');
     this.loading = false;
     m.redraw();
   };
 
   _proto.failure = function failure(response) {
-    this.showAlert(false);
+    this.showAlert('error');
     this.loading = false;
     m.redraw();
   };
 
-  _proto.showAlert = function showAlert(success) {
-    var label = success ? 'Profile cover updated.' : 'Image could not be uploaded.';
-    var type = success ? 'success' : 'error';
-    this.alert = flarum_components_Alert__WEBPACK_IMPORTED_MODULE_1___default.a.component({
-      children: label,
-      type: type
-    });
+  _proto.showAlert = function showAlert(type) {
+    this.alert.props.children = app.translator.trans("sycho-profile-cover.forum." + this.context + "." + type);
+    this.alert.props.type = type;
   };
 
   return CoverEditorModal;
@@ -350,12 +346,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-app.initializers.add('sycho-flarum-profile-cover', function (app) {
+app.initializers.add('sycho-profile-cover', function (app) {
   flarum_models_User__WEBPACK_IMPORTED_MODULE_2___default.a.prototype.cover = flarum_Model__WEBPACK_IMPORTED_MODULE_7___default.a.attribute('cover');
+  flarum_models_User__WEBPACK_IMPORTED_MODULE_2___default.a.prototype.cover_thumbnail = flarum_Model__WEBPACK_IMPORTED_MODULE_7___default.a.attribute('cover_thumbnail');
   Object(flarum_extend__WEBPACK_IMPORTED_MODULE_1__["extend"])(flarum_components_UserCard__WEBPACK_IMPORTED_MODULE_4___default.a.prototype, 'view', function (view) {
     if (!view.attrs.style) return;
     var cover = this.props.user.cover();
+    var thumbnail = this.props.user.cover_thumbnail();
     if (!cover) return;
+
+    if (this.props.controlsButtonClassName.includes('Button--icon') && thumbnail) {
+      cover = thumbnail;
+    }
+
     var coverUrl = app.forum.attribute('baseUrl') + '/assets/covers/' + cover;
     view.attrs.style = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])(view.attrs.style, {
       backgroundImage: "url(" + coverUrl + ")",
@@ -367,8 +370,7 @@ app.initializers.add('sycho-flarum-profile-cover', function (app) {
   Object(flarum_extend__WEBPACK_IMPORTED_MODULE_1__["extend"])(flarum_utils_UserControls__WEBPACK_IMPORTED_MODULE_5___default.a, 'moderationControls', function (items, user) {
     items.add('cover', flarum_components_Button__WEBPACK_IMPORTED_MODULE_6___default.a.component({
       icon: 'fas fa-image',
-      children: 'Cover',
-      // app.translator.trans('sycho-flarum-profile-cover.forum.user.edit_cover'),
+      children: app.translator.trans('sycho-profile-cover.forum.cover'),
       onclick: function onclick() {
         return app.modal.show(new _components_CoverEditorModal__WEBPACK_IMPORTED_MODULE_8__["default"]({
           user: user

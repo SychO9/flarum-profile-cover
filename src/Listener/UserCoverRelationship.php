@@ -7,6 +7,7 @@ use Flarum\Api\Event\Serializing;
 use Flarum\Api\Serializer\UserSerializer;
 use Flarum\Event\GetModelRelationship;
 use Flarum\User\User;
+use SychO\ProfileCover\Helper\Thumbnail;
 
 class UserCoverRelationship
 {
@@ -23,7 +24,24 @@ class UserCoverRelationship
      */
     public function serializing(Serializing $event)
     {
-        if ($event->isSerializer(UserSerializer::class))
+        if ($event->isSerializer(UserSerializer::class)) {
             $event->attributes['cover'] = $event->model->cover;
+            $event->attributes['cover_thumbnail'] = $this->thumbnailName($event->model->cover);
+        }
+    }
+
+    /**
+     * @param string $imageName
+     * @return string|null
+     */
+    public function thumbnailName(?string $imageName)
+    {
+        $thumbnailName = '/thumbnails/' . $imageName;
+
+        if (file_exists(public_path('assets/covers/' . $thumbnailName))) {
+            return $thumbnailName;
+        }
+
+        return null;
     }
 }

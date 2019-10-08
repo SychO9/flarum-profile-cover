@@ -10,7 +10,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Tobscure\JsonApi\Document;
 use SychO\ProfileCover\Command\DeleteCover;
 
-class DeleteAvatarController extends AbstractShowController
+class DeleteCoverController extends AbstractShowController
 {
     /**
      * {@inheritdoc}

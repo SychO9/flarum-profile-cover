@@ -1,0 +1,14 @@
+sycho-profile-cover:
+  admin:
+    settings: ProfileCover Settings
+    thumbnails: Create thumbnails
+  forum:
+    cover: Cover
+    edit_cover: Edit Cover
+    notice: Image size must be less than 2MB
+    added:
+      success: Profile cover updated.
+      error: Image could not be uploaded.
+    removed:
+      success: Profile cover removed.
+      error: Could not remove cover, try again later.
