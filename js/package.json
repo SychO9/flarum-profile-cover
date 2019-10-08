@@ -1,0 +1,17 @@
+{
+  "name": "@sycho/flarum-profile-cover",
+  "version": "0.1.0",
+  "dependencies": {
+    "flarum-webpack-config": "^0.1.0-beta.8",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.5"
+  },
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack --mode development --watch",
+    "lint": "prettier --single-quote --trailing-comma es5 --print-width 150 --tab-width 4 --write 'src/**/*'"
+  },
+  "devDependencies": {
+    "prettier": "^1.18.2"
+  }
+}
