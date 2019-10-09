@@ -1,6 +1,6 @@
 <?php
 
-namespace SychO\ProfileCover;
+namespace SychO\ProfileCover\Provider;
 
 use Flarum\Foundation\AbstractServiceProvider;
 use Illuminate\Support\Arr;

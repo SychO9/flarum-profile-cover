@@ -36,9 +36,9 @@ class UserCoverRelationship
      */
     public function thumbnailName(?string $imageName)
     {
-        $thumbnailName = '/thumbnails/' . $imageName;
+        $thumbnailName = 'thumbnails/' . $imageName;
 
-        if (file_exists(public_path('assets/covers/' . $thumbnailName))) {
+        if (file_exists(public_path('assets/covers/' . $thumbnailName)) && !empty($imageName)) {
             return $thumbnailName;
         }
 

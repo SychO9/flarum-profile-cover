@@ -4,6 +4,7 @@ import Button from 'flarum/components/Button';
 import Switch from 'flarum/components/Switch';
 import FieldSet from 'flarum/components/FieldSet';
 import ItemList from 'flarum/utils/ItemList';
+import LoadingIndicator from 'flarum/components/LoadingIndicator';
 import listItems from 'flarum/helpers/listItems';
 
 export default class CoverEditorModal extends Modal {
@@ -15,11 +16,24 @@ export default class CoverEditorModal extends Modal {
     });
 
     this.loading = false;
+    this.cover = this.props.user.cover_thumbnail() || this.props.user.cover();
     this.context = '';
   }
 
   content() {
-    return (
+    let attrs = {};
+    let className = 'Modal-image CoverEditor-cover';
+
+    if (this.cover) {
+      attrs.style = {backgroundImage: `url(${app.forum.attribute('baseUrl') + '/assets/covers/' + this.cover})`};
+      className += ' CoverEditor-active';
+    }
+
+    return [
+      <div className={className} {...attrs}>
+        {this.loading ? LoadingIndicator.component() : ''}
+      </div>,
+
       <div className="Modal-body">
         <div className="Form">
           {this.fieldsItems().toArray().map(field => (
@@ -30,7 +44,7 @@ export default class CoverEditorModal extends Modal {
           ))}
         </div>
       </div>
-    );
+    ];
   }
 
   className() {
@@ -128,6 +142,7 @@ export default class CoverEditorModal extends Modal {
     this.showAlert('success');
     this.loading = false;
     m.redraw();
+    this.hide();
   }
 
   failure(response) {

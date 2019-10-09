@@ -6,11 +6,12 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\View\Factory;
 use SychO\ProfileCover\Controller;
 use SychO\ProfileCover\Listener\UserCoverRelationship;
-use SychO\ProfileCover\CoverServiceProvider;
+use SychO\ProfileCover\Provider\CoverServiceProvider;
 
 return [
     (new Extend\Frontend('forum'))
-        ->js(__DIR__.'/js/dist/forum.js'),
+        ->js(__DIR__.'/js/dist/forum.js')
+        ->css(__DIR__.'/resources/less/forum.less'),
 
     (new Extend\Frontend('admin'))
         ->js(__DIR__.'/js/dist/admin.js'),
