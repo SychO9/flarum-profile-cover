@@ -115,11 +115,6 @@ class CoverUploader
             $decrementBy = [];
             $thumbnailPath = 'thumbnails/' . $coverPath;
 
-            error_log(json_encode([
-                $coverPath => $this->coversDir->has($coverPath),
-                $thumbnailPath => $this->coversDir->has($thumbnailPath)
-            ]));
-
             if ($this->coversDir->has($coverPath)) {
                 $decrementBy += [
                     'images_size' => $this->coversDir->getSize($coverPath),
@@ -188,8 +183,6 @@ class CoverUploader
 
             $settings[$key] = $newValue < 0 ? 0 : $newValue;
         }
-
-        error_log(json_encode([$context, $this->getStats(), $values, $settings]));
 
         $this->config->set($this->statsKey, json_encode($settings));
     }
