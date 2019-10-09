@@ -13,12 +13,12 @@ class CoverServiceProvider extends AbstractServiceProvider
 {
     public function register()
     {
-        $filesystem = function() {
+        $coversFileSystem = function() {
             return new Filesystem(new Local(public_path('assets/covers')));
         };
 
         $this->app->when(CoverUploader::class)
             ->needs(FilesystemInterface::class)
-            ->give($filesystem);
+            ->give($coversFileSystem);
     }
 }

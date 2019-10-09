@@ -155,14 +155,39 @@ function (_SettingsModal) {
   };
 
   _proto.form = function form() {
-    return m("div", {
-      "class": "Form-group"
+    return [m("div", {
+      className: "Form-group"
     }, m("label", {
       className: "checkbox"
     }, m("input", {
       type: "checkbox",
       bidi: this.setting('sycho-profile-cover.thumbnails')
-    }), app.translator.trans('sycho-profile-cover.admin.thumbnails')));
+    }), app.translator.trans('sycho-profile-cover.admin.thumbnails'))), m("div", {
+      className: "Form-group"
+    }, m("div", null, m("strong", null, app.translator.trans('sycho-profile-cover.admin.cover_size'), ":"), " ", this.sizeOf('images')), m("div", null, m("strong", null, app.translator.trans('sycho-profile-cover.admin.thumb_size'), ":"), " ", this.sizeOf('thumbs')))];
+  };
+
+  _proto.sizeOf = function sizeOf(type) {
+    var stats = JSON.parse(app.data.settings['sycho-profile-cover.stats']);
+    var size = parseFloat(stats[type + '_size']);
+    var count = parseInt(stats[type + '_count']);
+    return app.translator.trans("sycho-profile-cover.admin.size_of_" + type, {
+      size: this.formatBytes(parseFloat(size)),
+      count: count
+    });
+  };
+
+  _proto.formatBytes = function formatBytes(bytes, decimals) {
+    if (decimals === void 0) {
+      decimals = 2;
+    }
+
+    if (bytes === 0) return '0 Bytes';
+    var k = 1024;
+    var dm = decimals < 0 ? 0 : decimals;
+    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    var i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   };
 
   return CoverSettingsModal;

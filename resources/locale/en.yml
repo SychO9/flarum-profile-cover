@@ -2,6 +2,10 @@ sycho-profile-cover:
   admin:
     settings: ProfileCover Settings
     thumbnails: Create thumbnails
+    cover_size: Images size
+    thumb_size: Thumbnails size
+    size_of_images: "{size} out of {count} images"
+    size_of_thumbs: "{size} out of {count} thumbnails"
   forum:
     cover: Cover
     edit_cover: Edit Cover
