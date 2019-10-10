@@ -4,8 +4,8 @@ sycho-profile-cover:
     thumbnails: Create thumbnails
     cover_size: Images size
     thumb_size: Thumbnails size
-    size_of_images: "{size} out of {count} images"
-    size_of_thumbs: "{size} out of {count} thumbnails"
+    size_of_images: "{size} out of {count} image|{size} out of {count} images"
+    size_of_thumbs: "{size} out of {count} thumbnail|{size} out of {count} thumbnails"
   forum:
     cover: Cover
     edit_cover: Edit Cover

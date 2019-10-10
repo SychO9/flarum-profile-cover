@@ -2,6 +2,7 @@
     "name": "sycho/flarum-profile-cover",
     "description": "Adds the ability to add a cover image to a profile.",
     "type": "flarum-extension",
+    "license": "MIT",
     "require": {
         "flarum/core": "^0.1.0-beta.10"
     },
