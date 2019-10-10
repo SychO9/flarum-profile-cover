@@ -24,6 +24,7 @@ $ composer update sycho/flarum-profile-cover
 ## Links
 * [GitHub](https://github.com/SychO9/flarum-profile-cover)
 * [Packagist](https://packagist.org/packages/sycho/flarum-profile-cover)
+* [Flagrow](https://flagrow.io/extensions/sycho/flarum-profile-cover)
 
 ## License
 This software is released under the MIT License. A full copy of this license is included in the package file.
