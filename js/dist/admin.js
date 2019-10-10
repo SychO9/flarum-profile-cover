@@ -171,7 +171,7 @@ function (_SettingsModal) {
     var stats = JSON.parse(app.data.settings['sycho-profile-cover.stats']);
     var size = parseFloat(stats[type + '_size']);
     var count = parseInt(stats[type + '_count']);
-    return app.translator.trans("sycho-profile-cover.admin.size_of_" + type, {
+    return app.translator.transChoice("sycho-profile-cover.admin.size_of_" + type, count, {
       size: this.formatBytes(parseFloat(size)),
       count: count
     });
