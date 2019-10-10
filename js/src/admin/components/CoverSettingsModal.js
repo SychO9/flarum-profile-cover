@@ -30,7 +30,7 @@ export default class CoverSettingsModal extends SettingsModal {
     const size = parseFloat(stats[type + '_size']);
     const count = parseInt(stats[type + '_count']);
 
-    return app.translator.trans(`sycho-profile-cover.admin.size_of_${type}`, {
+    return app.translator.transChoice(`sycho-profile-cover.admin.size_of_${type}`, count, {
       size: this.formatBytes(parseFloat(size)),
       count: count
     });
