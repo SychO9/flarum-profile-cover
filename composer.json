@@ -10,9 +10,8 @@
         }
     ],
     "type": "flarum-extension",
-    "license": "MIT",
     "require": {
-        "flarum/core": "^0.1.0-beta.10"
+        "flarum/core": ">=0.1.0-beta.10 <0.1.0-beta.12"
     },
     "autoload": {
         "psr-4": {
