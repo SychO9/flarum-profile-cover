@@ -168,7 +168,19 @@ function (_SettingsModal) {
   };
 
   _proto.sizeOf = function sizeOf(type) {
-    var stats = JSON.parse(app.data.settings['sycho-profile-cover.stats']);
+    var stats;
+
+    try {
+      stats = JSON.parse(app.data.settings['sycho-profile-cover.stats']);
+    } catch (e) {
+      stats = {
+        thumbs_size: 0,
+        thumbs_count: 0,
+        images_size: 0,
+        images_count: 0
+      };
+    }
+
     var size = parseFloat(stats[type + '_size']);
     var count = parseInt(stats[type + '_count']);
     return app.translator.transChoice("sycho-profile-cover.admin.size_of_" + type, count, {
