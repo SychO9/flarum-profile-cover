@@ -20,7 +20,7 @@
     },
     "extra": {
         "flarum-extension": {
-            "title": "Pofile Cover",
+            "title": "Profile Cover",
             "icon": {
                 "name": "fas fa-image",
                 "backgroundColor": "#004957",
