@@ -132,6 +132,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
 /* harmony import */ var flarum_components_SettingsModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! flarum/components/SettingsModal */ "flarum/components/SettingsModal");
 /* harmony import */ var flarum_components_SettingsModal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(flarum_components_SettingsModal__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _common_formatBytes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../common/formatBytes */ "./src/common/formatBytes.js");
+
 
 
 
@@ -145,6 +147,12 @@ function (_SettingsModal) {
   }
 
   var _proto = CoverSettingsModal.prototype;
+
+  _proto.init = function init() {
+    _SettingsModal.prototype.init.call(this);
+
+    this.maxSize = this.setting('sycho-profile-cover.max_size', 2048);
+  };
 
   _proto.title = function title() {
     return app.translator.trans('sycho-profile-cover.admin.settings');
@@ -163,6 +171,19 @@ function (_SettingsModal) {
       type: "checkbox",
       bidi: this.setting('sycho-profile-cover.thumbnails')
     }), app.translator.trans('sycho-profile-cover.admin.thumbnails'))), m("div", {
+      className: "Form-group"
+    }, m("label", null, app.translator.trans('sycho-profile-cover.admin.max_size')), m("div", {
+      className: "ProfileCover-size-input"
+    }, m("input", {
+      type: "number",
+      className: "FormControl",
+      value: this.maxSize(),
+      oninput: m.withAttr('value', this.maxSize)
+    }), m("input", {
+      className: "FormControl",
+      value: Object(_common_formatBytes__WEBPACK_IMPORTED_MODULE_2__["default"])(this.maxSize() * Math.pow(2, 10)),
+      disabled: true
+    }))), m("div", {
       className: "Form-group"
     }, m("div", null, m("strong", null, app.translator.trans('sycho-profile-cover.admin.cover_size'), ":"), " ", this.sizeOf('images')), m("div", null, m("strong", null, app.translator.trans('sycho-profile-cover.admin.thumb_size'), ":"), " ", this.sizeOf('thumbs')))];
   };
@@ -184,22 +205,9 @@ function (_SettingsModal) {
     var size = parseFloat(stats[type + '_size']);
     var count = parseInt(stats[type + '_count']);
     return app.translator.transChoice("sycho-profile-cover.admin.size_of_" + type, count, {
-      size: this.formatBytes(parseFloat(size)),
+      size: Object(_common_formatBytes__WEBPACK_IMPORTED_MODULE_2__["default"])(size),
       count: count
     });
-  };
-
-  _proto.formatBytes = function formatBytes(bytes, decimals) {
-    if (decimals === void 0) {
-      decimals = 2;
-    }
-
-    if (bytes === 0) return '0 Bytes';
-    var k = 1024;
-    var dm = decimals < 0 ? 0 : decimals;
-    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-    var i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   };
 
   return CoverSettingsModal;
@@ -230,6 +238,31 @@ app.initializers.add('sycho-profile-cover', function (app) {
     return app.modal.show(new _components_CoverSettingsModal__WEBPACK_IMPORTED_MODULE_0__["default"]());
   };
 });
+
+/***/ }),
+
+/***/ "./src/common/formatBytes.js":
+/*!***********************************!*\
+  !*** ./src/common/formatBytes.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return formatBytes; });
+function formatBytes(bytes, decimals) {
+  if (decimals === void 0) {
+    decimals = 2;
+  }
+
+  if (bytes === 0) return '0 Bytes';
+  var k = 1024;
+  var dm = decimals < 0 ? 0 : decimals;
+  var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  var i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
 
 /***/ }),
 

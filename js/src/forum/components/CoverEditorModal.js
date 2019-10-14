@@ -6,13 +6,16 @@ import FieldSet from 'flarum/components/FieldSet';
 import ItemList from 'flarum/utils/ItemList';
 import LoadingIndicator from 'flarum/components/LoadingIndicator';
 import listItems from 'flarum/helpers/listItems';
+import formatBytes from '../../common/formatBytes';
 
 export default class CoverEditorModal extends Modal {
   init() {
     super.init();
 
+    this.maxSize = parseFloat(app.data['sycho-profile-cover.max_size'] || 2048);
+
     this.alert = Alert.component({
-      children: app.translator.trans('sycho-profile-cover.forum.notice')
+      children: app.translator.trans('sycho-profile-cover.forum.notice', {size: formatBytes(this.maxSize * Math.pow(2, 10))})
     });
 
     this.loading = false;

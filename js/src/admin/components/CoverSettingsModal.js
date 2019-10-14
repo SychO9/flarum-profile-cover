@@ -1,6 +1,12 @@
 import SettingsModal from 'flarum/components/SettingsModal';
+import formatBytes from '../../common/formatBytes';
 
 export default class CoverSettingsModal extends SettingsModal {
+  init() {
+    super.init();
+
+    this.maxSize = this.setting('sycho-profile-cover.max_size', 2048);
+  }
   title() {
     return app.translator.trans('sycho-profile-cover.admin.settings');
   }
@@ -16,6 +22,14 @@ export default class CoverSettingsModal extends SettingsModal {
           <input type="checkbox" bidi={this.setting('sycho-profile-cover.thumbnails')}/>
           {app.translator.trans('sycho-profile-cover.admin.thumbnails')}
         </label>
+      </div>,
+
+      <div className="Form-group">
+        <label>{app.translator.trans('sycho-profile-cover.admin.max_size')}</label>
+        <div className="ProfileCover-size-input">
+          <input type="number" className="FormControl" value={this.maxSize()} oninput={m.withAttr('value', this.maxSize)}/>
+          <input className="FormControl" value={formatBytes(this.maxSize() * Math.pow(2, 10))} disabled/>
+        </div>
       </div>,
 
       <div className="Form-group">
@@ -43,20 +57,8 @@ export default class CoverSettingsModal extends SettingsModal {
     const count = parseInt(stats[type + '_count']);
 
     return app.translator.transChoice(`sycho-profile-cover.admin.size_of_${type}`, count, {
-      size: this.formatBytes(parseFloat(size)),
+      size: formatBytes(size),
       count: count
     });
-  }
-
-  formatBytes(bytes, decimals = 2) {
-    if (bytes === 0) return '0 Bytes';
-
-    const k = 1024;
-    const dm = decimals < 0 ? 0 : decimals;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 }
