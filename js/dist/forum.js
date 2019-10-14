@@ -149,6 +149,31 @@ function _inheritsLoose(subClass, superClass) {
 
 /***/ }),
 
+/***/ "./src/common/formatBytes.js":
+/*!***********************************!*\
+  !*** ./src/common/formatBytes.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return formatBytes; });
+function formatBytes(bytes, decimals) {
+  if (decimals === void 0) {
+    decimals = 2;
+  }
+
+  if (bytes === 0) return '0 Bytes';
+  var k = 1024;
+  var dm = decimals < 0 ? 0 : decimals;
+  var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  var i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
+/***/ }),
+
 /***/ "./src/forum/components/CoverEditorModal.js":
 /*!**************************************************!*\
   !*** ./src/forum/components/CoverEditorModal.js ***!
@@ -177,6 +202,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flarum_components_LoadingIndicator__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(flarum_components_LoadingIndicator__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var flarum_helpers_listItems__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! flarum/helpers/listItems */ "flarum/helpers/listItems");
 /* harmony import */ var flarum_helpers_listItems__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(flarum_helpers_listItems__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _common_formatBytes__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../common/formatBytes */ "./src/common/formatBytes.js");
+
 
 
 
@@ -202,8 +229,11 @@ function (_Modal) {
   _proto.init = function init() {
     _Modal.prototype.init.call(this);
 
+    this.maxSize = parseFloat(app.data['sycho-profile-cover.max_size'] || 2048);
     this.alert = flarum_components_Alert__WEBPACK_IMPORTED_MODULE_2___default.a.component({
-      children: app.translator.trans('sycho-profile-cover.forum.notice')
+      children: app.translator.trans('sycho-profile-cover.forum.notice', {
+        size: Object(_common_formatBytes__WEBPACK_IMPORTED_MODULE_10__["default"])(this.maxSize * Math.pow(2, 10))
+      })
     });
     this.loading = false;
     this.cover = this.props.user.cover_thumbnail() || this.props.user.cover();

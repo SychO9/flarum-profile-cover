@@ -14,13 +14,18 @@ return [
         ->css(__DIR__.'/resources/less/forum.less'),
 
     (new Extend\Frontend('admin'))
-        ->js(__DIR__.'/js/dist/admin.js'),
+        ->js(__DIR__.'/js/dist/admin.js')
+        ->css(__DIR__.'/resources/less/admin.less'),
 
     (new Extend\Routes('api'))
         ->post('/users/{id}/cover', 'users.cover.upload', Controller\UploadCoverController::class)
         ->delete('/users/{id}/cover', 'users.cover.delete', Controller\DeleteCoverController::class),
 
     new Extend\Locales(__DIR__.'/resources/locale'),
+
+    (new FoF\Extend\Extend\ExtensionSettings())
+        ->setPrefix('sycho-profile-cover.')
+        ->addKeys(['max_size']),
 
     function (Factory $view) {
         $view->addNamespace('profile-cover', __DIR__.'/views');
