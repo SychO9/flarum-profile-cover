@@ -40,7 +40,19 @@ export default class CoverSettingsModal extends SettingsModal {
   }
 
   sizeOf(type) {
-    const stats = JSON.parse(app.data.settings['sycho-profile-cover.stats']);
+    let stats;
+
+    try {
+      stats = JSON.parse(app.data.settings['sycho-profile-cover.stats']);
+    } catch (e) {
+      stats = {
+        thumbs_size: 0,
+        thumbs_count: 0,
+        images_size: 0,
+        images_count: 0
+      };
+    }
+
     const size = parseFloat(stats[type + '_size']);
     const count = parseInt(stats[type + '_count']);
 

@@ -10,7 +10,6 @@
         }
     ],
     "type": "flarum-extension",
-    "license": "MIT",
     "require": {
         "flarum/core": ">=0.1.0-beta.10 <0.1.0-beta.12",
         "fof/extend": ">=0.2.0"
@@ -22,7 +21,7 @@
     },
     "extra": {
         "flarum-extension": {
-            "title": "Pofile Cover",
+            "title": "Profile Cover",
             "icon": {
                 "name": "fas fa-image",
                 "backgroundColor": "#004957",
