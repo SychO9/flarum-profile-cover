@@ -31,6 +31,8 @@ app.initializers.add('sycho-profile-cover', (app) => {
   });
 
   extend(UserControls, 'moderationControls', function(items, user) {
+    if (!user.canEdit() && app.session.user !== user) return;
+
     items.add('cover',
       Button.component({
         icon: 'fas fa-image',
