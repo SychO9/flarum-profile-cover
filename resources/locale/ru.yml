@@ -1,0 +1,19 @@
+sycho-profile-cover:
+  admin:
+    settings: Натсройки обложки профиля
+    thumbnails: Создать миниатюры
+    max_size: Максимальный размер изображения обложки профиля (в КБ)
+    cover_size: Размер изображения
+    thumb_size: Размер миниатюр
+    size_of_images: "{size} из {count} изображений | {size} из {count} изображений"
+    size_of_thumbs: "{size} из {count} миниатюр | {size} из {count} миниатюр"
+  forum:
+    cover: Обложка
+    edit_cover: Редактировать обложку
+    notice: "Максимальный размер: {size}"
+    added:
+      success: Обложка профиля обновлена.
+      error: Изображение не может быть загружено.
+    removed:
+      success: Обложка профиля удалена.
+      error: Не удалось снять обложку, попробуйте позже.
