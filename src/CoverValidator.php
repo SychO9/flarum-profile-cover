@@ -2,13 +2,13 @@
 
 namespace SychO\ProfileCover;
 
-use Flarum\Foundation\AbstractValidator;
 use Flarum\Settings\SettingsRepositoryInterface;
+use Flarum\User\AvatarValidator;
 use Illuminate\Validation\Factory;
 use Illuminate\Contracts\Events\Dispatcher;
 use Symfony\Component\Translation\TranslatorInterface;
 
-class CoverValidator extends AbstractValidator
+class CoverValidator extends AvatarValidator
 {
     /**
      * @var SettingsRepositoryInterface
@@ -26,24 +26,28 @@ class CoverValidator extends AbstractValidator
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
-    public function getRules()
+    public function assertValid(array $attributes)
     {
-        return [
-            'cover' => [
-                'required',
-                'mimes:jpeg,png,bmp',
-                'max:' . $this->getMaxSize()
-            ]
-        ];
+        $this->assertFileRequired($attributes['cover']);
+        $this->assertFileMimes($attributes['cover']);
+        $this->assertFileSize($attributes['cover']);
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getMaxSize()
+    protected function getMaxSize()
     {
-        return $this->config->get('sycho-profile-cover.max_size') ?? '2048';
+        return (int) ($this->config->get('sycho-profile-cover.max_size') ?? 2048);
+    }
+
+    /**
+     * @return string[]
+     */
+    protected function getAllowedTypes()
+    {
+        return ['jpeg', 'png', 'bmp'];
     }
 }
