@@ -222,11 +222,11 @@ var CoverEditorModal = /*#__PURE__*/function (_Modal) {
     _Modal.prototype.init.call(this);
 
     this.maxSize = parseFloat(app.data['sycho-profile-cover.max_size'] || 2048);
-    this.alert = flarum_components_Alert__WEBPACK_IMPORTED_MODULE_2___default.a.component({
+    this.alertAttrs = {
       children: app.translator.trans('sycho-profile-cover.forum.notice', {
         size: Object(_common_formatBytes__WEBPACK_IMPORTED_MODULE_8__["default"])(this.maxSize * Math.pow(2, 10))
       })
-    });
+    };
     this.loading = false;
     this.cover = this.props.user.cover_thumbnail() || this.props.user.cover();
     this.context = '';

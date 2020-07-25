@@ -13,9 +13,9 @@ export default class CoverEditorModal extends Modal {
 
     this.maxSize = parseFloat(app.data['sycho-profile-cover.max_size'] || 2048);
 
-    this.alert = Alert.component({
+    this.alertAttrs = {
       children: app.translator.trans('sycho-profile-cover.forum.notice', { size: formatBytes(this.maxSize * Math.pow(2, 10)) }),
-    });
+    };
 
     this.loading = false;
     this.cover = this.props.user.cover_thumbnail() || this.props.user.cover();
