@@ -10,9 +10,10 @@ import CoverEditorModal from './components/CoverEditorModal';
 app.initializers.add('sycho-profile-cover', (app) => {
   User.prototype.cover = Model.attribute('cover');
   User.prototype.cover_thumbnail = Model.attribute('cover_thumbnail');
+  User.prototype.canSetProfileCover = Model.attribute('canSetProfileCover');
 
   extend(UserCard.prototype, 'view', function (view) {
-    if (!view.attrs.style) return;
+    if (!view.attrs.style || !this.props.user.canSetProfileCover()) return;
 
     let cover = this.props.user.cover();
     let thumbnail = this.props.user.cover_thumbnail();
@@ -31,7 +32,7 @@ app.initializers.add('sycho-profile-cover', (app) => {
   });
 
   extend(UserControls, 'moderationControls', function (items, user) {
-    if (!user.canEdit() && app.session.user !== user) return;
+    if (!user.canEdit() || !app.session.user.canSetProfileCover()) return;
 
     items.add(
       'cover',

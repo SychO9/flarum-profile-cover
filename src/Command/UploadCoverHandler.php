@@ -61,6 +61,8 @@ class UploadCoverHandler
             $actor->assertCan('edit', $user);
         }
 
+        $actor->assertCan('setProfileCover');
+
         $this->validator->assertValid(['cover' => $command->file]);
 
         $image = (new ImageManager)->make($command->file->getStream());

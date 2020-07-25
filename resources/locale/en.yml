@@ -7,6 +7,8 @@ sycho-profile-cover:
     thumb_size: Thumbnails size
     size_of_images: "{size} out of {count} image|{size} out of {count} images"
     size_of_thumbs: "{size} out of {count} thumbnail|{size} out of {count} thumbnails"
+    permission:
+      set_cover: Set Profile Cover
   forum:
     cover: Cover
     edit_cover: Edit Cover

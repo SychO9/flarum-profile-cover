@@ -7,6 +7,8 @@ sycho-profile-cover:
     thumb_size: Размер миниатюр
     size_of_images: "{size} из {count} изображений | {size} из {count} изображений"
     size_of_thumbs: "{size} из {count} миниатюр | {size} из {count} миниатюр"
+    permission:
+      set_cover: Set Profile Cover
   forum:
     cover: Обложка
     edit_cover: Редактировать обложку

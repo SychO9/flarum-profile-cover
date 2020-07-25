@@ -224,12 +224,27 @@ var CoverSettingsModal = /*#__PURE__*/function (_SettingsModal) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_CoverSettingsModal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/CoverSettingsModal */ "./src/admin/components/CoverSettingsModal.js");
+/* harmony import */ var flarum_extend__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! flarum/extend */ "flarum/extend");
+/* harmony import */ var flarum_extend__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(flarum_extend__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var flarum_components_PermissionGrid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! flarum/components/PermissionGrid */ "flarum/components/PermissionGrid");
+/* harmony import */ var flarum_components_PermissionGrid__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(flarum_components_PermissionGrid__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_CoverSettingsModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/CoverSettingsModal */ "./src/admin/components/CoverSettingsModal.js");
+
+
 
 app.initializers.add('sycho-profile-cover', function (app) {
   app.extensionSettings['sycho-profile-cover'] = function () {
-    return app.modal.show(_components_CoverSettingsModal__WEBPACK_IMPORTED_MODULE_0__["default"]);
+    return app.modal.show(_components_CoverSettingsModal__WEBPACK_IMPORTED_MODULE_2__["default"]);
   };
+
+  Object(flarum_extend__WEBPACK_IMPORTED_MODULE_0__["extend"])(flarum_components_PermissionGrid__WEBPACK_IMPORTED_MODULE_1___default.a.prototype, 'startItems', function (items) {
+    items.add('profileCover', {
+      icon: 'fas fa-image',
+      label: app.translator.trans('sycho-profile-cover.admin.permission.set_cover'),
+      permission: 'setProfileCover'
+    });
+    return items;
+  });
 });
 
 /***/ }),
@@ -259,6 +274,17 @@ function formatBytes(bytes, decimals) {
 
 /***/ }),
 
+/***/ "flarum/components/PermissionGrid":
+/*!******************************************************************!*\
+  !*** external "flarum.core.compat['components/PermissionGrid']" ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = flarum.core.compat['components/PermissionGrid'];
+
+/***/ }),
+
 /***/ "flarum/components/SettingsModal":
 /*!*****************************************************************!*\
   !*** external "flarum.core.compat['components/SettingsModal']" ***!
@@ -267,6 +293,17 @@ function formatBytes(bytes, decimals) {
 /***/ (function(module, exports) {
 
 module.exports = flarum.core.compat['components/SettingsModal'];
+
+/***/ }),
+
+/***/ "flarum/extend":
+/*!***********************************************!*\
+  !*** external "flarum.core.compat['extend']" ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = flarum.core.compat['extend'];
 
 /***/ })
 

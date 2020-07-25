@@ -342,8 +342,8 @@ var CoverEditorModal = /*#__PURE__*/function (_Modal) {
   };
 
   _proto.showAlert = function showAlert(type) {
-    this.alert.props.children = app.translator.trans("sycho-profile-cover.forum." + this.context + "." + type);
-    this.alert.props.type = type;
+    this.alertAttrs.children = app.translator.trans("sycho-profile-cover.forum." + this.context + "." + type);
+    this.alertAttrs.type = type;
   };
 
   return CoverEditorModal;
@@ -387,8 +387,9 @@ __webpack_require__.r(__webpack_exports__);
 app.initializers.add('sycho-profile-cover', function (app) {
   flarum_models_User__WEBPACK_IMPORTED_MODULE_2___default.a.prototype.cover = flarum_Model__WEBPACK_IMPORTED_MODULE_6___default.a.attribute('cover');
   flarum_models_User__WEBPACK_IMPORTED_MODULE_2___default.a.prototype.cover_thumbnail = flarum_Model__WEBPACK_IMPORTED_MODULE_6___default.a.attribute('cover_thumbnail');
+  flarum_models_User__WEBPACK_IMPORTED_MODULE_2___default.a.prototype.canSetProfileCover = flarum_Model__WEBPACK_IMPORTED_MODULE_6___default.a.attribute('canSetProfileCover');
   Object(flarum_extend__WEBPACK_IMPORTED_MODULE_1__["extend"])(flarum_components_UserCard__WEBPACK_IMPORTED_MODULE_3___default.a.prototype, 'view', function (view) {
-    if (!view.attrs.style) return;
+    if (!view.attrs.style || !this.props.user.canSetProfileCover()) return;
     var cover = this.props.user.cover();
     var thumbnail = this.props.user.cover_thumbnail();
     if (!cover) return;
@@ -403,7 +404,7 @@ app.initializers.add('sycho-profile-cover', function (app) {
     });
   });
   Object(flarum_extend__WEBPACK_IMPORTED_MODULE_1__["extend"])(flarum_utils_UserControls__WEBPACK_IMPORTED_MODULE_4___default.a, 'moderationControls', function (items, user) {
-    if (!user.canEdit() && app.session.user !== user) return;
+    if (!user.canEdit() || !app.session.user.canSetProfileCover()) return;
     items.add('cover', flarum_components_Button__WEBPACK_IMPORTED_MODULE_5___default.a.component({
       icon: 'fas fa-image',
       children: app.translator.trans('sycho-profile-cover.forum.cover'),
