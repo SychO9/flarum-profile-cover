@@ -10,6 +10,10 @@
         }
     ],
     "type": "flarum-extension",
+    "support": {
+      "issues": "https://github.com/SychO9/flarum-profile-cover/issues",
+      "source": "https://github.com/SychO9/flarum-profile-cover"
+    },
     "require": {
         "flarum/core": "^0.1.0-beta.14",
         "fof/extend": ">=0.2.0"
@@ -27,6 +31,9 @@
                 "backgroundColor": "#004957",
                 "color": "#fff"
             }
+        },
+        "flagrow": {
+          "discuss": "https://discuss.flarum.org/d/23437-profile-cover"
         }
     }
 }

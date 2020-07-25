@@ -1,6 +1,6 @@
 # ProfileCover
 ![latest version](https://img.shields.io/github/release/SychO9/flarum-profile-cover.svg?style=flat-square)
-![flarum version](https://img.shields.io/badge/flarum-%5E0.1.0--beta.10-%23e7742e?style=flat-square)
+![flarum version](https://img.shields.io/badge/flarum-%5E0.1.0--beta.14-%23e7742e?style=flat-square)
 ![mit license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square&color=green)
 ![downloads](https://img.shields.io/packagist/dt/sycho/flarum-profile-cover?color=%23f28d1a&style=flat-square)
 
@@ -26,6 +26,7 @@ $ composer update sycho/flarum-profile-cover
 * [GitHub](https://github.com/SychO9/flarum-profile-cover)
 * [Packagist](https://packagist.org/packages/sycho/flarum-profile-cover)
 * [Flagrow](https://flagrow.io/extensions/sycho/flarum-profile-cover)
+* [Discuss](https://discuss.flarum.org/d/23437-profile-cover)
 
 ## License
 This software is released under the MIT License. A full copy of this license is included in the package file.
