@@ -3,7 +3,7 @@
 namespace SychO\ProfileCover\Provider;
 
 use Flarum\Foundation\AbstractServiceProvider;
-use Illuminate\Support\Arr;
+use Flarum\Foundation\Paths;
 use League\Flysystem\FilesystemInterface;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Adapter\Local;
@@ -14,7 +14,7 @@ class CoverServiceProvider extends AbstractServiceProvider
     public function register()
     {
         $coversFileSystem = function() {
-            return new Filesystem(new Local(public_path('assets/covers')));
+            return new Filesystem(new Local((new Paths)->public.'/assets/covers'));
         };
 
         $this->app->when(CoverUploader::class)

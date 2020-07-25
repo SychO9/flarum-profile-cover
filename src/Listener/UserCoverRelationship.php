@@ -2,15 +2,26 @@
 
 namespace SychO\ProfileCover\Listener;
 
+use Flarum\Foundation\Paths;
 use Illuminate\Contracts\Events\Dispatcher;
 use Flarum\Api\Event\Serializing;
 use Flarum\Api\Serializer\UserSerializer;
-use Flarum\Event\GetModelRelationship;
-use Flarum\User\User;
-use SychO\ProfileCover\Helper\Thumbnail;
 
 class UserCoverRelationship
 {
+    /**
+     * @var \Flarum\Foundation\Paths
+     */
+    protected $paths;
+
+    /**
+     * @param \Flarum\Foundation\Paths $paths
+     */
+    public function __construct(Paths $paths)
+    {
+        $this->paths = $paths;
+    }
+
     /**
      * @param Dispatcher $event
      */
@@ -38,7 +49,7 @@ class UserCoverRelationship
     {
         $thumbnailName = 'thumbnails/' . $imageName;
 
-        if (file_exists(public_path('assets/covers/' . $thumbnailName)) && !empty($imageName)) {
+        if (file_exists("{$this->paths->public}/assets/covers/$thumbnailName") && !empty($imageName)) {
             return $thumbnailName;
         }
 
