@@ -2,10 +2,11 @@
 
 namespace SychO\ProfileCover\Command;
 
-use Flarum\Foundation\Application;
-use Flarum\Foundation\DispatchEventsTrait;
 use SychO\ProfileCover\CoverUploader;
 use SychO\ProfileCover\CoverValidator;
+use SychO\ProfileCover\Event\CoverSaving;
+use Flarum\Foundation\Application;
+use Flarum\Foundation\DispatchEventsTrait;
 use Flarum\User\UserRepository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Intervention\Image\ImageManager;
@@ -64,9 +65,15 @@ class UploadCoverHandler
 
         $image = (new ImageManager)->make($command->file->getStream());
 
+        $this->events->dispatch(
+            new CoverSaving($user, $actor, $image)
+        );
+
         $this->uploader->upload($user, $image);
 
         $user->save();
+
+        $this->dispatchEventsFor($user, $actor);
 
         return $user;
     }
