@@ -25,7 +25,7 @@ $ composer update sycho/flarum-profile-cover
 ## Links
 * [GitHub](https://github.com/SychO9/flarum-profile-cover)
 * [Packagist](https://packagist.org/packages/sycho/flarum-profile-cover)
-* [Flagrow](https://flagrow.io/extensions/sycho/flarum-profile-cover)
+* [Extiverse](https://extiverse.com/extension/sycho/flarum-profile-cover)
 * [Discuss](https://discuss.flarum.org/d/23437-profile-cover)
 
 ## License
