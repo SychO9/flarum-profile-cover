@@ -7,7 +7,7 @@
 A [Flarum](http://flarum.org/) extension. Adds the ability to upload a cover image to a user profile.
 
 <p align=center>
-<img alt="flarum_public_admin" src="https://user-images.githubusercontent.com/20267363/66506033-d63c1300-eacc-11e9-8b8e-016d9963fb93.png" /> <img alt="flarum_public_u_SychO" src="https://user-images.githubusercontent.com/20267363/66506036-d6d4a980-eacc-11e9-8bcf-5f46962919cd.png"/><img alt="flarum_public_u_SychO (1)" src="https://user-images.githubusercontent.com/20267363/66506035-d6d4a980-eacc-11e9-8c19-c705d24ae109.png"/><img alt="flarum_public_u_SychO (2)" src="https://user-images.githubusercontent.com/20267363/66506034-d63c1300-eacc-11e9-86a7-6918821c8823.png"/>
+<img alt="flarum_public_admin" src="https://user-images.githubusercontent.com/20267363/88463990-f186dc00-ceae-11ea-9446-9fd5c5ad40ee.png" /> <img alt="flarum_public_u_SychO" src="https://user-images.githubusercontent.com/20267363/88463974-c7351e80-ceae-11ea-8253-8145e5d98341.png"/><img alt="flarum_public_u_SychO (1)" src="https://user-images.githubusercontent.com/20267363/88463975-c8664b80-ceae-11ea-8b56-8a6859098fe6.png"/><img alt="flarum_public_u_SychO (2)" src="https://user-images.githubusercontent.com/20267363/88463976-cac8a580-ceae-11ea-98ca-3eb43a7d4aff.png"/>
 </p>
 
 ## Installation
