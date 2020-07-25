@@ -14,7 +14,7 @@ class CoverServiceProvider extends AbstractServiceProvider
     public function register()
     {
         $coversFileSystem = function() {
-            return new Filesystem(new Local((new Paths)->public.'/assets/covers'));
+            return new Filesystem(new Local(($this->app->make(Paths::class))->public.'/assets/covers'));
         };
 
         $this->app->when(CoverUploader::class)

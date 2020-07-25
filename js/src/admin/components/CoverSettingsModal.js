@@ -19,7 +19,7 @@ export default class CoverSettingsModal extends SettingsModal {
     return [
       <div className="Form-group">
         <label className="checkbox">
-          <input type="checkbox" bidi={this.setting('sycho-profile-cover.thumbnails')}/>
+          <input type="checkbox" bidi={this.setting('sycho-profile-cover.thumbnails')} />
           {app.translator.trans('sycho-profile-cover.admin.thumbnails')}
         </label>
       </div>,
@@ -27,15 +27,19 @@ export default class CoverSettingsModal extends SettingsModal {
       <div className="Form-group">
         <label>{app.translator.trans('sycho-profile-cover.admin.max_size')}</label>
         <div className="ProfileCover-size-input">
-          <input type="number" className="FormControl" value={this.maxSize()} oninput={m.withAttr('value', this.maxSize)}/>
-          <input className="FormControl" value={formatBytes(this.maxSize() * Math.pow(2, 10))} disabled/>
+          <input type="number" className="FormControl" value={this.maxSize()} oninput={m.withAttr('value', this.maxSize)} />
+          <input className="FormControl" value={formatBytes(this.maxSize() * Math.pow(2, 10))} disabled />
         </div>
       </div>,
 
       <div className="Form-group">
-        <div><strong>{app.translator.trans('sycho-profile-cover.admin.cover_size')}:</strong> {this.sizeOf('images')}</div>
-        <div><strong>{app.translator.trans('sycho-profile-cover.admin.thumb_size')}:</strong> {this.sizeOf('thumbs')}</div>
-      </div>
+        <div>
+          <strong>{app.translator.trans('sycho-profile-cover.admin.cover_size')}:</strong> {this.sizeOf('images')}
+        </div>
+        <div>
+          <strong>{app.translator.trans('sycho-profile-cover.admin.thumb_size')}:</strong> {this.sizeOf('thumbs')}
+        </div>
+      </div>,
     ];
   }
 
@@ -49,7 +53,7 @@ export default class CoverSettingsModal extends SettingsModal {
         thumbs_size: 0,
         thumbs_count: 0,
         images_size: 0,
-        images_count: 0
+        images_count: 0,
       };
     }
 
@@ -58,7 +62,7 @@ export default class CoverSettingsModal extends SettingsModal {
 
     return app.translator.transChoice(`sycho-profile-cover.admin.size_of_${type}`, count, {
       size: formatBytes(size),
-      count: count
+      count: count,
     });
   }
 }

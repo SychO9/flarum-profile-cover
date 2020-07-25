@@ -1,11 +1,10 @@
 import Alert from 'flarum/components/Alert';
 import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
-import Switch from 'flarum/components/Switch';
 import FieldSet from 'flarum/components/FieldSet';
 import ItemList from 'flarum/utils/ItemList';
 import LoadingIndicator from 'flarum/components/LoadingIndicator';
-import listItems from 'flarum/helpers/listItems';
+
 import formatBytes from '../../common/formatBytes';
 
 export default class CoverEditorModal extends Modal {
@@ -15,7 +14,7 @@ export default class CoverEditorModal extends Modal {
     this.maxSize = parseFloat(app.data['sycho-profile-cover.max_size'] || 2048);
 
     this.alert = Alert.component({
-      children: app.translator.trans('sycho-profile-cover.forum.notice', {size: formatBytes(this.maxSize * Math.pow(2, 10))})
+      children: app.translator.trans('sycho-profile-cover.forum.notice', { size: formatBytes(this.maxSize * Math.pow(2, 10)) }),
     });
 
     this.loading = false;
@@ -28,7 +27,7 @@ export default class CoverEditorModal extends Modal {
     let className = 'Modal-image CoverEditor-cover';
 
     if (this.cover) {
-      attrs.style = {backgroundImage: `url(${app.forum.attribute('baseUrl') + '/assets/covers/' + this.cover})`};
+      attrs.style = { backgroundImage: `url(${app.forum.attribute('baseUrl') + '/assets/covers/' + this.cover})` };
       className += ' CoverEditor-active';
     }
 
@@ -39,14 +38,16 @@ export default class CoverEditorModal extends Modal {
 
       <div className="Modal-body">
         <div className="Form">
-          {this.fieldsItems().toArray().map(field => (
-            <div class="Form-group">
-              <label>{field.props.label}</label>
-              {field.props.children}
-            </div>
-          ))}
+          {this.fieldsItems()
+            .toArray()
+            .map((field) => (
+              <div className="Form-group">
+                <label>{field.props.label}</label>
+                {field.props.children}
+              </div>
+            ))}
         </div>
-      </div>
+      </div>,
     ];
   }
 
@@ -61,11 +62,12 @@ export default class CoverEditorModal extends Modal {
   fieldsItems() {
     const items = new ItemList();
 
-    items.add('actions',
+    items.add(
+      'actions',
       FieldSet.component({
         label: '',
         className: 'Cover-actions',
-        children: this.controlItems().toArray()
+        children: this.controlItems().toArray(),
       })
     );
 
@@ -75,21 +77,23 @@ export default class CoverEditorModal extends Modal {
   controlItems() {
     const items = new ItemList();
 
-    items.add('upload',
+    items.add(
+      'upload',
       Button.component({
         icon: 'fas fa-upload',
         className: 'Button',
         children: app.translator.trans('core.forum.user.avatar_upload_button'),
-        onclick: this.openPicker.bind(this)
+        onclick: this.openPicker.bind(this),
       })
     );
 
-    items.add('remove',
+    items.add(
+      'remove',
       Button.component({
         icon: 'fas fa-times',
         className: 'Button',
         children: app.translator.trans('core.forum.user.avatar_remove_button'),
-        onclick: this.remove.bind(this)
+        onclick: this.remove.bind(this),
       })
     );
 
@@ -99,9 +103,13 @@ export default class CoverEditorModal extends Modal {
   openPicker() {
     const input = $('<input type="file">');
 
-    input.appendTo('body').hide().click().on('change', e => {
-      this.upload($(e.target)[0].files[0]);
-    });
+    input
+      .appendTo('body')
+      .hide()
+      .click()
+      .on('change', (e) => {
+        this.upload($(e.target)[0].files[0]);
+      });
   }
 
   upload(file) {
@@ -114,15 +122,14 @@ export default class CoverEditorModal extends Modal {
     this.context = 'added';
     m.redraw();
 
-    app.request({
-      method: 'POST',
-      url: app.forum.attribute('apiUrl') + '/users/' + this.props.user.id() + '/cover',
-      serialize: raw => raw,
-      data
-    }).then(
-      this.success.bind(this),
-      this.failure.bind(this)
-    );
+    app
+      .request({
+        method: 'POST',
+        url: app.forum.attribute('apiUrl') + '/users/' + this.props.user.id() + '/cover',
+        serialize: (raw) => raw,
+        data,
+      })
+      .then(this.success.bind(this), this.failure.bind(this));
   }
 
   remove() {
@@ -130,13 +137,12 @@ export default class CoverEditorModal extends Modal {
     this.context = 'removed';
     m.redraw();
 
-    app.request({
-      method: 'DELETE',
-      url: app.forum.attribute('apiUrl') + '/users/' + this.props.user.id() + '/cover'
-    }).then(
-      this.success.bind(this),
-      this.failure.bind(this)
-    );
+    app
+      .request({
+        method: 'DELETE',
+        url: app.forum.attribute('apiUrl') + '/users/' + this.props.user.id() + '/cover',
+      })
+      .then(this.success.bind(this), this.failure.bind(this));
   }
 
   success(response) {
