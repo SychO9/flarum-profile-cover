@@ -161,7 +161,7 @@ export default class CoverEditorModal extends Modal {
   }
 
   showAlert(type) {
-    this.alert.props.children = app.translator.trans(`sycho-profile-cover.forum.${this.context}.${type}`);
-    this.alert.props.type = type;
+    this.alertAttrs.children = app.translator.trans(`sycho-profile-cover.forum.${this.context}.${type}`);
+    this.alertAttrs.type = type;
   }
 }
