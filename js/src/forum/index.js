@@ -32,7 +32,7 @@ app.initializers.add('sycho-profile-cover', (app) => {
   });
 
   extend(UserControls, 'moderationControls', function (items, user) {
-    if (!user.canEdit() || !app.session.user.canSetProfileCover()) return;
+    if (!user.canEdit() && !app.session.user.canSetProfileCover()) return;
 
     items.add(
       'cover',

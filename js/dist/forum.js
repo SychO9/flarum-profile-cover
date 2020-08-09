@@ -404,7 +404,7 @@ app.initializers.add('sycho-profile-cover', function (app) {
     });
   });
   Object(flarum_extend__WEBPACK_IMPORTED_MODULE_1__["extend"])(flarum_utils_UserControls__WEBPACK_IMPORTED_MODULE_4___default.a, 'moderationControls', function (items, user) {
-    if (!user.canEdit() || !app.session.user.canSetProfileCover()) return;
+    if (!user.canEdit() && !app.session.user.canSetProfileCover()) return;
     items.add('cover', flarum_components_Button__WEBPACK_IMPORTED_MODULE_5___default.a.component({
       icon: 'fas fa-image',
       children: app.translator.trans('sycho-profile-cover.forum.cover'),
