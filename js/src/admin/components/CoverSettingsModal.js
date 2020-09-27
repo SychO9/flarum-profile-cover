@@ -1,9 +1,10 @@
 import SettingsModal from 'flarum/components/SettingsModal';
+import withAttr from 'flarum/utils/withAttr';
 import formatBytes from '../../common/formatBytes';
 
 export default class CoverSettingsModal extends SettingsModal {
-  init() {
-    super.init();
+  oninit(vnode) {
+    super.oninit(vnode);
 
     this.maxSize = this.setting('sycho-profile-cover.max_size', 2048);
   }
@@ -27,7 +28,7 @@ export default class CoverSettingsModal extends SettingsModal {
       <div className="Form-group">
         <label>{app.translator.trans('sycho-profile-cover.admin.max_size')}</label>
         <div className="ProfileCover-size-input">
-          <input type="number" className="FormControl" value={this.maxSize()} oninput={m.withAttr('value', this.maxSize)} />
+          <input type="number" className="FormControl" value={this.maxSize()} oninput={withAttr('value', this.maxSize)} />
           <input className="FormControl" value={formatBytes(this.maxSize() * Math.pow(2, 10))} disabled />
         </div>
       </div>,

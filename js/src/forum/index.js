@@ -13,14 +13,14 @@ app.initializers.add('sycho-profile-cover', (app) => {
   User.prototype.canSetProfileCover = Model.attribute('canSetProfileCover');
 
   extend(UserCard.prototype, 'view', function (view) {
-    if (!view.attrs.style || !this.props.user.canSetProfileCover()) return;
+    if (!view.attrs.style || !this.attrs.user.canSetProfileCover()) return;
 
-    let cover = this.props.user.cover();
-    let thumbnail = this.props.user.cover_thumbnail();
+    let cover = this.attrs.user.cover();
+    let thumbnail = this.attrs.user.cover_thumbnail();
 
     if (!cover) return;
 
-    if (this.props.controlsButtonClassName.includes('Button--icon') && thumbnail) {
+    if (this.attrs.controlsButtonClassName.includes('Button--icon') && thumbnail) {
       cover = thumbnail;
     }
 
@@ -36,11 +36,11 @@ app.initializers.add('sycho-profile-cover', (app) => {
 
     items.add(
       'cover',
-      Button.component({
-        icon: 'fas fa-image',
-        children: app.translator.trans('sycho-profile-cover.forum.cover'),
-        onclick: () => app.modal.show(CoverEditorModal, { user }),
-      })
+      <Button icon="fas fa-image" onclick={() => app.modal.show(CoverEditorModal, { user })}>
+        {app.translator.trans('sycho-profile-cover.forum.cover')}
+      </Button>
     );
+
+    return items;
   });
 });

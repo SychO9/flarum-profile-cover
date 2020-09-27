@@ -132,7 +132,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
 /* harmony import */ var flarum_components_SettingsModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! flarum/components/SettingsModal */ "flarum/components/SettingsModal");
 /* harmony import */ var flarum_components_SettingsModal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(flarum_components_SettingsModal__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _common_formatBytes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../common/formatBytes */ "./src/common/formatBytes.js");
+/* harmony import */ var flarum_utils_withAttr__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! flarum/utils/withAttr */ "flarum/utils/withAttr");
+/* harmony import */ var flarum_utils_withAttr__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(flarum_utils_withAttr__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _common_formatBytes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../common/formatBytes */ "./src/common/formatBytes.js");
+
 
 
 
@@ -146,8 +149,8 @@ var CoverSettingsModal = /*#__PURE__*/function (_SettingsModal) {
 
   var _proto = CoverSettingsModal.prototype;
 
-  _proto.init = function init() {
-    _SettingsModal.prototype.init.call(this);
+  _proto.oninit = function oninit(vnode) {
+    _SettingsModal.prototype.oninit.call(this, vnode);
 
     this.maxSize = this.setting('sycho-profile-cover.max_size', 2048);
   };
@@ -176,10 +179,10 @@ var CoverSettingsModal = /*#__PURE__*/function (_SettingsModal) {
       type: "number",
       className: "FormControl",
       value: this.maxSize(),
-      oninput: m.withAttr('value', this.maxSize)
+      oninput: flarum_utils_withAttr__WEBPACK_IMPORTED_MODULE_2___default()('value', this.maxSize)
     }), m("input", {
       className: "FormControl",
-      value: Object(_common_formatBytes__WEBPACK_IMPORTED_MODULE_2__["default"])(this.maxSize() * Math.pow(2, 10)),
+      value: Object(_common_formatBytes__WEBPACK_IMPORTED_MODULE_3__["default"])(this.maxSize() * Math.pow(2, 10)),
       disabled: true
     }))), m("div", {
       className: "Form-group"
@@ -203,7 +206,7 @@ var CoverSettingsModal = /*#__PURE__*/function (_SettingsModal) {
     var size = parseFloat(stats[type + '_size']);
     var count = parseInt(stats[type + '_count']);
     return app.translator.transChoice("sycho-profile-cover.admin.size_of_" + type, count, {
-      size: Object(_common_formatBytes__WEBPACK_IMPORTED_MODULE_2__["default"])(size),
+      size: Object(_common_formatBytes__WEBPACK_IMPORTED_MODULE_3__["default"])(size),
       count: count
     });
   };
@@ -304,6 +307,17 @@ module.exports = flarum.core.compat['components/SettingsModal'];
 /***/ (function(module, exports) {
 
 module.exports = flarum.core.compat['extend'];
+
+/***/ }),
+
+/***/ "flarum/utils/withAttr":
+/*!*******************************************************!*\
+  !*** external "flarum.core.compat['utils/withAttr']" ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = flarum.core.compat['utils/withAttr'];
 
 /***/ })
 
