@@ -7,7 +7,9 @@ export default class CoverSettingsModal extends SettingsModal {
     super.oninit(vnode);
 
     this.maxSize = this.setting('sycho-profile-cover.max_size', 2048);
+    this.createThumbnails = this.setting('sycho-profile-cover.thumbnails', 0);
   }
+
   title() {
     return app.translator.trans('sycho-profile-cover.admin.settings');
   }
@@ -20,7 +22,7 @@ export default class CoverSettingsModal extends SettingsModal {
     return [
       <div className="Form-group">
         <label className="checkbox">
-          <input type="checkbox" bidi={this.setting('sycho-profile-cover.thumbnails')} />
+          <input type="checkbox" checked={this.createThumbnails() == 1} oninput={(e) => this.createThumbnails(e.target.checked)} />
           {app.translator.trans('sycho-profile-cover.admin.thumbnails')}
         </label>
       </div>,

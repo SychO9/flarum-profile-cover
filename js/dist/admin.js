@@ -153,6 +153,7 @@ var CoverSettingsModal = /*#__PURE__*/function (_SettingsModal) {
     _SettingsModal.prototype.oninit.call(this, vnode);
 
     this.maxSize = this.setting('sycho-profile-cover.max_size', 2048);
+    this.createThumbnails = this.setting('sycho-profile-cover.thumbnails', 0);
   };
 
   _proto.title = function title() {
@@ -164,13 +165,18 @@ var CoverSettingsModal = /*#__PURE__*/function (_SettingsModal) {
   };
 
   _proto.form = function form() {
+    var _this = this;
+
     return [m("div", {
       className: "Form-group"
     }, m("label", {
       className: "checkbox"
     }, m("input", {
       type: "checkbox",
-      bidi: this.setting('sycho-profile-cover.thumbnails')
+      checked: this.createThumbnails() == 1,
+      oninput: function oninput(e) {
+        return _this.createThumbnails(e.target.checked);
+      }
     }), app.translator.trans('sycho-profile-cover.admin.thumbnails'))), m("div", {
       className: "Form-group"
     }, m("label", null, app.translator.trans('sycho-profile-cover.admin.max_size')), m("div", {
