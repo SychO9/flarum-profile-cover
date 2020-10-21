@@ -7,6 +7,7 @@ use Illuminate\Contracts\View\Factory;
 use SychO\ProfileCover\Controller;
 use SychO\ProfileCover\Listener\UserCoverRelationship;
 use SychO\ProfileCover\Provider\CoverServiceProvider;
+use SychO\ProfileCover\Access\UserPolicy;
 
 return [
     (new Extend\Frontend('forum'))
@@ -29,6 +30,7 @@ return [
 
     function(Dispatcher $event) {
         $event->subscribe(UserCoverRelationship::class);
+        $event->subscribe(UserPolicy::class);
     },
 
     function (Application $app) {

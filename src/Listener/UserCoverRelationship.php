@@ -38,7 +38,7 @@ class UserCoverRelationship
         if ($event->isSerializer(UserSerializer::class)) {
             $event->attributes['cover'] = $event->model->cover;
             $event->attributes['cover_thumbnail'] = $this->thumbnailName($event->model->cover);
-            $event->attributes['canSetProfileCover'] = $event->model->can('setProfileCover');
+            $event->attributes['canSetProfileCover'] = $event->actor->can('setProfileCover', $event->model);
         }
     }
 

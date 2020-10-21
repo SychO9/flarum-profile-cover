@@ -13,7 +13,7 @@ app.initializers.add('sycho-profile-cover', (app) => {
   User.prototype.canSetProfileCover = Model.attribute('canSetProfileCover');
 
   extend(UserCard.prototype, 'view', function (view) {
-    if (!view.attrs.style || !this.attrs.user.canSetProfileCover()) return;
+    if (!view.attrs.style || !this.attrs.user.cover()) return;
 
     let cover = this.attrs.user.cover();
     let thumbnail = this.attrs.user.cover_thumbnail();
@@ -32,7 +32,7 @@ app.initializers.add('sycho-profile-cover', (app) => {
   });
 
   extend(UserControls, 'moderationControls', function (items, user) {
-    if (!user.canEdit() && !app.session.user.canSetProfileCover()) return;
+    if (!user.canSetProfileCover()) return;
 
     items.add(
       'cover',
