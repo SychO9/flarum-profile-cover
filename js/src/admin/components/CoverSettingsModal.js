@@ -22,7 +22,7 @@ export default class CoverSettingsModal extends SettingsModal {
     return [
       <div className="Form-group">
         <label className="checkbox">
-          <input type="checkbox" checked={this.createThumbnails() == 1} oninput={(e) => this.createThumbnails(e.target.checked)} />
+          <input type="checkbox" checked={this.createThumbnails() == 1} oninput={withAttr('checked', this.createThumbnails)} />
           {app.translator.trans('sycho-profile-cover.admin.thumbnails')}
         </label>
       </div>,

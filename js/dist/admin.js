@@ -165,8 +165,6 @@ var CoverSettingsModal = /*#__PURE__*/function (_SettingsModal) {
   };
 
   _proto.form = function form() {
-    var _this = this;
-
     return [m("div", {
       className: "Form-group"
     }, m("label", {
@@ -174,9 +172,7 @@ var CoverSettingsModal = /*#__PURE__*/function (_SettingsModal) {
     }, m("input", {
       type: "checkbox",
       checked: this.createThumbnails() == 1,
-      oninput: function oninput(e) {
-        return _this.createThumbnails(e.target.checked);
-      }
+      oninput: flarum_utils_withAttr__WEBPACK_IMPORTED_MODULE_2___default()('checked', this.createThumbnails)
     }), app.translator.trans('sycho-profile-cover.admin.thumbnails'))), m("div", {
       className: "Form-group"
     }, m("label", null, app.translator.trans('sycho-profile-cover.admin.max_size')), m("div", {
