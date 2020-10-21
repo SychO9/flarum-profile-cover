@@ -3,10 +3,6 @@ sycho-profile-cover:
     settings: ProfileCover Settings
     thumbnails: Create thumbnails
     max_size: Maximum profile cover image size (in KB)
-    cover_size: Images size
-    thumb_size: Thumbnails size
-    size_of_images: "{size} out of {count} image|{size} out of {count} images"
-    size_of_thumbs: "{size} out of {count} thumbnail|{size} out of {count} thumbnails"
     permission:
       set_cover: Set Profile Cover
   forum:

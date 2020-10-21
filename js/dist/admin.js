@@ -190,31 +190,7 @@ var CoverSettingsModal = /*#__PURE__*/function (_SettingsModal) {
       className: "FormControl",
       value: Object(_common_formatBytes__WEBPACK_IMPORTED_MODULE_3__["default"])(this.maxSize() * Math.pow(2, 10)),
       disabled: true
-    }))), m("div", {
-      className: "Form-group"
-    }, m("div", null, m("strong", null, app.translator.trans('sycho-profile-cover.admin.cover_size'), ":"), " ", this.sizeOf('images')), m("div", null, m("strong", null, app.translator.trans('sycho-profile-cover.admin.thumb_size'), ":"), " ", this.sizeOf('thumbs')))];
-  };
-
-  _proto.sizeOf = function sizeOf(type) {
-    var stats;
-
-    try {
-      stats = JSON.parse(app.data.settings['sycho-profile-cover.stats']);
-    } catch (e) {
-      stats = {
-        thumbs_size: 0,
-        thumbs_count: 0,
-        images_size: 0,
-        images_count: 0
-      };
-    }
-
-    var size = parseFloat(stats[type + '_size']);
-    var count = parseInt(stats[type + '_count']);
-    return app.translator.transChoice("sycho-profile-cover.admin.size_of_" + type, count, {
-      size: Object(_common_formatBytes__WEBPACK_IMPORTED_MODULE_3__["default"])(size),
-      count: count
-    });
+    })))];
   };
 
   return CoverSettingsModal;

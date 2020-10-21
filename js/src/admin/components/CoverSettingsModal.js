@@ -34,38 +34,6 @@ export default class CoverSettingsModal extends SettingsModal {
           <input className="FormControl" value={formatBytes(this.maxSize() * Math.pow(2, 10))} disabled />
         </div>
       </div>,
-
-      <div className="Form-group">
-        <div>
-          <strong>{app.translator.trans('sycho-profile-cover.admin.cover_size')}:</strong> {this.sizeOf('images')}
-        </div>
-        <div>
-          <strong>{app.translator.trans('sycho-profile-cover.admin.thumb_size')}:</strong> {this.sizeOf('thumbs')}
-        </div>
-      </div>,
     ];
-  }
-
-  sizeOf(type) {
-    let stats;
-
-    try {
-      stats = JSON.parse(app.data.settings['sycho-profile-cover.stats']);
-    } catch (e) {
-      stats = {
-        thumbs_size: 0,
-        thumbs_count: 0,
-        images_size: 0,
-        images_count: 0,
-      };
-    }
-
-    const size = parseFloat(stats[type + '_size']);
-    const count = parseInt(stats[type + '_count']);
-
-    return app.translator.transChoice(`sycho-profile-cover.admin.size_of_${type}`, count, {
-      size: formatBytes(size),
-      count: count,
-    });
   }
 }
