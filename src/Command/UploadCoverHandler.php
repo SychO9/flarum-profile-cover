@@ -57,11 +57,7 @@ class UploadCoverHandler
 
         $user = $this->users->findOrFail($command->userId);
 
-        if ($actor->id !== $user->id) {
-            $actor->assertCan('edit', $user);
-        }
-
-        $actor->assertCan('setProfileCover');
+        $actor->assertCan('setProfileCover', $user);
 
         $this->validator->assertValid(['cover' => $command->file]);
 
