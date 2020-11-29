@@ -2,6 +2,12 @@
     "name": "sycho/flarum-profile-cover",
     "description": "Adds the ability to add a cover image to a profile.",
     "license": "MIT",
+    "funding": [
+        {
+            "type": "other",
+            "url": "https://www.buymeacoffee.com/sycho"
+        }
+    ],
     "authors": [
         {
             "name": "Sami 'SychO' Mazouz",
@@ -26,9 +32,15 @@
     "extra": {
         "flarum-extension": {
             "title": "Profile Cover",
+            "category": "feature",
+            "info": {
+                "donate": "https://www.buymeacoffee.com/sycho",
+                "website": "https://sycho9.github.io",
+                "discuss": "https://discuss.flarum.org/d/23437-profile-cover"
+            },
             "icon": {
                 "name": "fas fa-image",
-                "backgroundColor": "#004957",
+                "backgroundColor": "#117187",
                 "color": "#fff"
             }
         },
