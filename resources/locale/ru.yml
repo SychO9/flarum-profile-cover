@@ -1,6 +1,5 @@
 sycho-profile-cover:
   admin:
-    settings: Настройки обложки профиля
     thumbnails: Создать миниатюры
     max_size: Максимальный размер изображения обложки профиля (в КБ)
     permission:

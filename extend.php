@@ -1,9 +1,17 @@
 <?php
 
+/*
+ * This file is part of Flarum Profile Cover.
+ *
+ * (c) Sami "SychO" Mazouz <sychocouldy@gmail.com>
+ *
+ * For detailed copyright and license information, please view the
+ * LICENSE file that was distributed with this source code.
+ */
+
+use Flarum\Api\Serializer\UserSerializer;
 use Flarum\Extend;
-use Flarum\Foundation\Application;
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Contracts\View\Factory;
+use Flarum\User\User;
 use SychO\ProfileCover\Controller;
 use SychO\ProfileCover\Listener\UserCoverRelationship;
 use SychO\ProfileCover\Provider\CoverServiceProvider;
@@ -24,16 +32,15 @@ return [
 
     new Extend\Locales(__DIR__.'/resources/locale'),
 
-    (new FoF\Extend\Extend\ExtensionSettings())
-        ->setPrefix('sycho-profile-cover.')
-        ->addKeys(['max_size']),
+    (new Extend\Settings())
+        ->serializeToForum('sycho-profile-cover.max_size', 'sycho-profile-cover.max_size'),
 
-    function(Dispatcher $event) {
-        $event->subscribe(UserCoverRelationship::class);
-        $event->subscribe(UserPolicy::class);
-    },
+    (new Extend\ApiSerializer(UserSerializer::class))
+        ->mutate(UserCoverRelationship::class),
 
-    function (Application $app) {
-        $app->register(CoverServiceProvider::class);
-    }
+    (new Extend\Policy())
+        ->modelPolicy(User::class, UserPolicy::class),
+
+    (new Extend\ServiceProvider())
+        ->register(CoverServiceProvider::class),
 ];

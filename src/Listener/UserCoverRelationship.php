@@ -1,11 +1,19 @@
 <?php
 
+/*
+ * This file is part of Flarum Profile Cover.
+ *
+ * (c) Sami "SychO" Mazouz <sychocouldy@gmail.com>
+ *
+ * For detailed copyright and license information, please view the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace SychO\ProfileCover\Listener;
 
 use Flarum\Foundation\Paths;
-use Illuminate\Contracts\Events\Dispatcher;
-use Flarum\Api\Event\Serializing;
 use Flarum\Api\Serializer\UserSerializer;
+use Flarum\User\User;
 
 class UserCoverRelationship
 {
@@ -23,27 +31,21 @@ class UserCoverRelationship
     }
 
     /**
-     * @param Dispatcher $event
+     * @param UserSerializer $serializer
+     * @param User $user
+     * @return array
      */
-    public function subscribe(Dispatcher $event)
+    public function __invoke(UserSerializer $serializer, User $user): array
     {
-        $event->listen(Serializing::class, [$this, 'serializing']);
+        return [
+            'cover' => $user->cover,
+            'cover_thumbnail' => $this->thumbnailName($user->cover),
+            'canSetProfileCover' => $serializer->getActor()->can('setProfileCover', $user),
+        ];
     }
 
     /**
-     * @param Serializing $event
-     */
-    public function serializing(Serializing $event)
-    {
-        if ($event->isSerializer(UserSerializer::class)) {
-            $event->attributes['cover'] = $event->model->cover;
-            $event->attributes['cover_thumbnail'] = $this->thumbnailName($event->model->cover);
-            $event->attributes['canSetProfileCover'] = $event->actor->can('setProfileCover', $event->model);
-        }
-    }
-
-    /**
-     * @param string $imageName
+     * @param string|null $imageName
      * @return string|null
      */
     public function thumbnailName(?string $imageName)

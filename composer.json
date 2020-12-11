@@ -16,13 +16,14 @@
         }
     ],
     "type": "flarum-extension",
+    "homepage": "https://sycho9.github.io",
     "support": {
       "issues": "https://github.com/SychO9/flarum-profile-cover/issues",
-      "source": "https://github.com/SychO9/flarum-profile-cover"
+      "source": "https://github.com/SychO9/flarum-profile-cover",
+      "forum": "https://discuss.flarum.org/d/23437"
     },
     "require": {
-        "flarum/core": "^0.1.0-beta.14",
-        "fof/extend": ">=0.2.0"
+        "flarum/core": "^0.1.0-beta.15"
     },
     "autoload": {
         "psr-4": {
@@ -33,11 +34,6 @@
         "flarum-extension": {
             "title": "Profile Cover",
             "category": "feature",
-            "info": {
-                "donate": "https://www.buymeacoffee.com/sycho",
-                "website": "https://sycho9.github.io",
-                "discuss": "https://discuss.flarum.org/d/23437-profile-cover"
-            },
             "icon": {
                 "name": "fas fa-image",
                 "backgroundColor": "#117187",
@@ -45,7 +41,7 @@
             }
         },
         "flagrow": {
-          "discuss": "https://discuss.flarum.org/d/23437-profile-cover"
+          "discuss": "https://discuss.flarum.org/d/23437"
         }
     }
 }

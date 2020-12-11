@@ -1,6 +1,5 @@
 sycho-profile-cover:
   admin:
-    settings: ProfileCover Settings
     thumbnails: Create thumbnails
     max_size: Maximum profile cover image size (in KB)
     permission:

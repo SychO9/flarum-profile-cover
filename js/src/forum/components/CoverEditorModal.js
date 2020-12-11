@@ -1,16 +1,14 @@
-import Alert from 'flarum/components/Alert';
 import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
 import ItemList from 'flarum/utils/ItemList';
 import LoadingIndicator from 'flarum/components/LoadingIndicator';
-
 import formatBytes from '../../common/formatBytes';
 
 export default class CoverEditorModal extends Modal {
   oninit(vnode) {
     super.oninit(vnode);
 
-    this.maxSize = parseFloat(app.data['sycho-profile-cover.max_size'] || 2048);
+    this.maxSize = parseFloat(app.forum.attribute('sycho-profile-cover.max_size') || 2048);
 
     this.alertAttrs = {
       content: app.translator.trans('sycho-profile-cover.forum.notice', { size: formatBytes(this.maxSize * Math.pow(2, 10)) }),
@@ -131,7 +129,7 @@ export default class CoverEditorModal extends Modal {
     this.hide();
   }
 
-  failure(response) {
+  failure() {
     this.showAlert('error');
     this.loading = false;
     m.redraw();

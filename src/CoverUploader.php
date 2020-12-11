@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Flarum Profile Cover.
+ *
+ * (c) Sami "SychO" Mazouz <sychocouldy@gmail.com>
+ *
+ * For detailed copyright and license information, please view the
+ * LICENSE file that was distributed with this source code.
+ */
+
 namespace SychO\ProfileCover;
 
 use Illuminate\Support\Str;
@@ -7,7 +16,6 @@ use Intervention\Image\Image;
 use League\Flysystem\FilesystemInterface;
 use Flarum\User\User;
 use Flarum\Settings\SettingsRepositoryInterface;
-use SychO\ProfileCover\Helper\Thumbnail;
 
 class CoverUploader
 {
@@ -36,7 +44,7 @@ class CoverUploader
      */
     public function upload(User $user, Image $image)
     {
-        $makeThumb = $this->config->get('sycho-profile-cover.thumbnails') == 1;
+        $makeThumb = $this->config->get('sycho-profile-cover.thumbnails', 0) == 1;
 
         if (extension_loaded('exif')) {
             $image->orientate();
