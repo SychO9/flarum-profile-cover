@@ -57,6 +57,6 @@ class CoverValidator extends AvatarValidator
      */
     protected function getAllowedTypes()
     {
-        return ['jpg', 'png', 'bmp'];
+        return ['jpeg', 'jpg', 'png', 'bmp'];
     }
 }
