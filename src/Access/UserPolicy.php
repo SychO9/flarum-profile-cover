@@ -29,5 +29,7 @@ class UserPolicy extends AbstractPolicy
             )
         )
             return $this->allow();
+        else
+            return $this->deny();
     }
 }
