@@ -10,7 +10,7 @@
     ],
     "authors": [
         {
-            "name": "Sami 'SychO' Mazouz",
+            "name": "Sami Ilyes Mazouz",
             "email": "ilyasmazouz@gmail.com",
             "homepage": "https://sycho9.github.io"
         }
@@ -23,7 +23,7 @@
       "forum": "https://discuss.flarum.org/d/23437"
     },
     "require": {
-        "flarum/core": "^0.1.0-beta.15"
+        "flarum/core": "^0.1.0-beta.16"
     },
     "autoload": {
         "psr-4": {

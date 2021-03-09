@@ -27,9 +27,9 @@ class CoverValidator extends AvatarValidator
     /**
      * {@inheritdoc}
      */
-    public function __construct(Factory $validator, Dispatcher $events, TranslatorInterface $translator, SettingsRepositoryInterface $config)
+    public function __construct(Factory $validator, TranslatorInterface $translator, SettingsRepositoryInterface $config)
     {
-        parent::__construct($validator, $events, $translator);
+        parent::__construct($validator, $translator);
 
         $this->config = $config;
     }
