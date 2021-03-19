@@ -36,7 +36,7 @@ return [
         ->serializeToForum('sycho-profile-cover.max_size', 'sycho-profile-cover.max_size'),
 
     (new Extend\ApiSerializer(UserSerializer::class))
-        ->mutate(UserCoverRelationship::class),
+        ->attributes(UserCoverRelationship::class),
 
     (new Extend\Policy())
         ->modelPolicy(User::class, UserPolicy::class),
