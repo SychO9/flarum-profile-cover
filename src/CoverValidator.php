@@ -15,7 +15,7 @@ use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\AvatarValidator;
 use Illuminate\Validation\Factory;
 use Illuminate\Contracts\Events\Dispatcher;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CoverValidator extends AvatarValidator
 {

@@ -13,14 +13,15 @@ namespace SychO\ProfileCover;
 
 use Illuminate\Support\Str;
 use Intervention\Image\Image;
-use League\Flysystem\FilesystemInterface;
+use Illuminate\Contracts\Filesystem\Factory;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Flarum\User\User;
 use Flarum\Settings\SettingsRepositoryInterface;
 
 class CoverUploader
 {
     /**
-     * @var FilesystemInterface
+     * @var Filesystem
      */
     protected $coversDir;
 
@@ -32,9 +33,9 @@ class CoverUploader
     /**
      * @param FilesystemInterface $coversDir
      */
-    public function __construct(FilesystemInterface $coversDir, SettingsRepositoryInterface $config)
+    public function __construct(Factory $filesystem, SettingsRepositoryInterface $config)
     {
-        $this->coversDir = $coversDir;
+        $this->coversDir = $filesystem->disk('sycho-profile-cover');
         $this->config = $config;
     }
 
@@ -91,11 +92,11 @@ class CoverUploader
         $user->afterSave(function () use ($coverPath) {
             $thumbnailPath = 'thumbnails/' . $coverPath;
 
-            if ($this->coversDir->has($coverPath)) {
+            if ($this->coversDir->exists($coverPath)) {
                 $this->coversDir->delete($coverPath);
             }
 
-            if ($this->coversDir->has($thumbnailPath)) {
+            if ($this->coversDir->exists($thumbnailPath)) {
                 $this->coversDir->delete($thumbnailPath);
             }
         });

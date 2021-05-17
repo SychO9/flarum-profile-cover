@@ -27,7 +27,7 @@ app.initializers.add('sycho-profile-cover', (app) => {
     let coverUrl = app.forum.attribute('baseUrl') + '/assets/covers/' + cover;
 
     view.attrs.style = Object.assign(view.attrs.style, {
-      backgroundImage: `url(${coverUrl})`,
+      '--background-image': `url(${coverUrl})`,
     });
   });
 

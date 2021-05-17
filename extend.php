@@ -14,7 +14,6 @@ use Flarum\Extend;
 use Flarum\User\User;
 use SychO\ProfileCover\Controller;
 use SychO\ProfileCover\Listener\UserCoverRelationship;
-use SychO\ProfileCover\Provider\CoverServiceProvider;
 use SychO\ProfileCover\Access\UserPolicy;
 
 return [
@@ -41,6 +40,11 @@ return [
     (new Extend\Policy())
         ->modelPolicy(User::class, UserPolicy::class),
 
-    (new Extend\ServiceProvider())
-        ->register(CoverServiceProvider::class),
+    (new Extend\Filesystem())
+        ->disk('sycho-profile-cover', function ($paths, $url) {
+            return [
+                'root'   => "$paths->public/assets/covers",
+                'url'    => $url->to('forum')->path('assets/covers')
+            ];
+        }),
 ];

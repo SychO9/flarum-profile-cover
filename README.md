@@ -1,6 +1,6 @@
 # ProfileCover
 ![latest version](https://img.shields.io/github/release/SychO9/flarum-profile-cover.svg?style=flat-square)
-![flarum version](https://img.shields.io/badge/flarum-%5E0.1.0--beta.16-%23e7742e?style=flat-square)
+![flarum version](https://img.shields.io/badge/flarum-%5E1.0.0-%23e7742e?style=flat-square)
 ![mit license](https://img.shields.io/badge/license-MIT-green.svg?style=flat-square&color=green)
 ![downloads](https://img.shields.io/packagist/dt/sycho/flarum-profile-cover?color=%23f28d1a&style=flat-square)
 [![donate](https://img.shields.io/badge/donate-buy%20me%20a%20coffee-%23ffde39?style=flat-square)](https://www.buymeacoffee.com/sycho)
@@ -14,7 +14,7 @@ A [Flarum](http://flarum.org/) extension. Adds the ability to upload a cover ima
 ## Installation
 Using composer:
 ```gitattributes
-$ composer require sycho/flarum-profile-cover
+$ composer require sycho/flarum-profile-cover:*
 ```
 
 ## Updating
