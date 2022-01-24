@@ -15,6 +15,7 @@ use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\AvatarValidator;
 use Illuminate\Validation\Factory;
 use Illuminate\Contracts\Events\Dispatcher;
+use Intervention\Image\ImageManager;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CoverValidator extends AvatarValidator
@@ -27,9 +28,9 @@ class CoverValidator extends AvatarValidator
     /**
      * {@inheritdoc}
      */
-    public function __construct(Factory $validator, TranslatorInterface $translator, SettingsRepositoryInterface $config)
+    public function __construct(Factory $validator, TranslatorInterface $translator, ImageManager $imageManager, SettingsRepositoryInterface $config)
     {
-        parent::__construct($validator, $translator);
+        parent::__construct($validator, $translator, $imageManager);
 
         $this->config = $config;
     }
