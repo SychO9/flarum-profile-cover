@@ -23,7 +23,7 @@
       "forum": "https://discuss.flarum.org/d/23437"
     },
     "require": {
-        "flarum/core": "^1.0.0"
+        "flarum/core": "^1.2.0"
     },
     "autoload": {
         "psr-4": {
