@@ -1,3 +1,4 @@
+import app from 'flarum/forum/app';
 import { extend } from 'flarum/extend';
 import User from 'flarum/models/User';
 import UserCard from 'flarum/components/UserCard';

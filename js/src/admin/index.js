@@ -1,3 +1,4 @@
+import app from 'flarum/admin/app';
 import withAttr from 'flarum/common/utils/withAttr';
 import formatBytes from '../common/formatBytes';
 
