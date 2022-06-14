@@ -8,7 +8,7 @@ import Model from 'flarum/Model';
 
 import CoverEditorModal from './components/CoverEditorModal';
 
-app.initializers.add('sycho-profile-cover', (app) => {
+app.initializers.add('sycho-profile-cover', () => {
   User.prototype.cover = Model.attribute('cover');
   User.prototype.cover_thumbnail = Model.attribute('cover_thumbnail');
   User.prototype.canSetProfileCover = Model.attribute('canSetProfileCover');
