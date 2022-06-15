@@ -11,6 +11,8 @@
 
 use Flarum\Api\Serializer\UserSerializer;
 use Flarum\Extend;
+use Flarum\Foundation\Paths;
+use Flarum\Http\UrlGenerator;
 use Flarum\User\User;
 use SychO\ProfileCover\Controller;
 use SychO\ProfileCover\Listener\UserCoverRelationship;
@@ -41,7 +43,7 @@ return [
         ->modelPolicy(User::class, UserPolicy::class),
 
     (new Extend\Filesystem())
-        ->disk('sycho-profile-cover', function ($paths, $url) {
+        ->disk('sycho-profile-cover', function (Paths $paths, UrlGenerator $url) {
             return [
                 'root'   => "$paths->public/assets/covers",
                 'url'    => $url->to('forum')->path('assets/covers')
