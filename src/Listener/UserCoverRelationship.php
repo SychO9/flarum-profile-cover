@@ -14,9 +14,9 @@ namespace SychO\ProfileCover\Listener;
 use Flarum\Foundation\Paths;
 use Flarum\Api\Serializer\UserSerializer;
 use Flarum\User\User;
+use Illuminate\Contracts\Filesystem\Cloud;
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Contracts\Filesystem\Filesystem;
-use League\Flysystem\Adapter\Local;
 
 class UserCoverRelationship
 {
@@ -62,7 +62,7 @@ class UserCoverRelationship
         $thumbnailName = 'thumbnails/' . $imageName;
 
         if ($this->coversDir->exists($thumbnailName) && !empty($imageName)) {
-            return $this->coversDir instanceof Local ? $thumbnailName : $this->coversDir->url($thumbnailName);
+            return $this->coversDir instanceof Cloud ? $this->coversDir->url($thumbnailName) : $thumbnailName;
         }
 
         return null;
