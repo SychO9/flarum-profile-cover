@@ -50,7 +50,7 @@ class UserCoverRelationship
 
         return [
             'cover' => $user->cover ? ($local ? $this->paths->public . '/assets/covers/' . $user->cover : $this->coversDir->url($user->cover)) : $user->cover,
-            'cover_thumbnail' => $this->thumbnailName($user->cover, $local),
+            'cover_thumbnail' => $this->thumbnailUrl($user->cover, $local),
             'canSetProfileCover' => $serializer->getActor()->can('setProfileCover', $user),
         ];
     }
@@ -60,7 +60,7 @@ class UserCoverRelationship
      * @param bool $local
      * @return string|null
      */
-    public function thumbnailName(?string $imageName, bool $local)
+    public function thumbnailUrl(?string $imageName, bool $local)
     {
         $thumbnailName = 'thumbnails/' . $imageName;
 
