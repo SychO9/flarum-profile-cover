@@ -25,7 +25,7 @@ export default class CoverEditorModal extends Modal {
     let className = 'Modal-image CoverEditor-cover';
 
     if (this.cover) {
-      attrs.style = { backgroundImage: `url(${app.forum.attribute('baseUrl') + '/assets/covers/' + this.cover})` };
+      attrs.style = { backgroundImage: `url(${this.cover})` };
       className += ' CoverEditor-active';
     }
 
