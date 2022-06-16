@@ -14,7 +14,6 @@ namespace SychO\ProfileCover\Listener;
 use Flarum\Foundation\Paths;
 use Flarum\Api\Serializer\UserSerializer;
 use Flarum\User\User;
-use Illuminate\Contracts\Filesystem\Cloud;
 use Illuminate\Contracts\Filesystem\Local;
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Contracts\Filesystem\Filesystem;
