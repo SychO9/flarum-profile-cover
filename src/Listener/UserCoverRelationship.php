@@ -54,7 +54,6 @@ class UserCoverRelationship
 
     /**
      * @param string|null $imageName
-     * @param bool $local
      * @return string|null
      */
     public function thumbnailUrl(?string $imageName)
