@@ -15,6 +15,7 @@ use Flarum\Foundation\Paths;
 use Flarum\Api\Serializer\UserSerializer;
 use Flarum\User\User;
 use Illuminate\Contracts\Filesystem\Cloud;
+use Illuminate\Contracts\Filesystem\Local;
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Contracts\Filesystem\Filesystem;
 
@@ -46,23 +47,26 @@ class UserCoverRelationship
      */
     public function __invoke(UserSerializer $serializer, User $user): array
     {
+        $local = $this->coversDir instanceof Local;
+
         return [
-            'cover' => $user->cover,
-            'cover_thumbnail' => $this->thumbnailName($user->cover),
+            'cover' => $local ? $this->paths->public . '/assets/covers/' . $user->cover : $this->coversDir->url($user->cover),
+            'cover_thumbnail' => $this->thumbnailName($user->cover, $local),
             'canSetProfileCover' => $serializer->getActor()->can('setProfileCover', $user),
         ];
     }
 
     /**
      * @param string|null $imageName
+     * @param bool $local
      * @return string|null
      */
-    public function thumbnailName(?string $imageName)
+    public function thumbnailName(?string $imageName, bool $local)
     {
         $thumbnailName = 'thumbnails/' . $imageName;
 
         if ($this->coversDir->exists($thumbnailName) && !empty($imageName)) {
-            return $this->coversDir instanceof Cloud ? $this->coversDir->url($thumbnailName) : $thumbnailName;
+            return $local ? $this->paths->public . '/assets/covers/' . $thumbnailName : $this->coversDir->url($thumbnailName);
         }
 
         return null;
