@@ -1,7 +1,8 @@
+import app from 'flarum/admin/app';
 import withAttr from 'flarum/common/utils/withAttr';
 import formatBytes from '../common/formatBytes';
 
-app.initializers.add('sycho-profile-cover', (app) => {
+app.initializers.add('sycho-profile-cover', () => {
   app.extensionData
     .for('sycho-profile-cover')
     .registerSetting({

@@ -73,10 +73,10 @@ class CoverUploader
             $thumbnail->crop(500, 144);
             $encodedThumbnail = $thumbnail->encode('jpg');
 
-            $this->coversDir->write($thumbnailPath, $encodedThumbnail);
+            $this->coversDir->put($thumbnailPath, $encodedThumbnail);
         }
 
-        $this->coversDir->write($coverPath, $encodedImage);
+        $this->coversDir->put($coverPath, $encodedImage);
     }
 
     /**

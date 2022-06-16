@@ -1,3 +1,4 @@
+import app from 'flarum/forum/app';
 import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
 import ItemList from 'flarum/utils/ItemList';
@@ -24,7 +25,7 @@ export default class CoverEditorModal extends Modal {
     let className = 'Modal-image CoverEditor-cover';
 
     if (this.cover) {
-      attrs.style = { backgroundImage: `url(${app.forum.attribute('baseUrl') + '/assets/covers/' + this.cover})` };
+      attrs.style = { backgroundImage: `url(${this.cover})` };
       className += ' CoverEditor-active';
     }
 

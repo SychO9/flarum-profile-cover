@@ -1,3 +1,4 @@
+import app from 'flarum/forum/app';
 import { extend } from 'flarum/extend';
 import User from 'flarum/models/User';
 import UserCard from 'flarum/components/UserCard';
@@ -7,7 +8,7 @@ import Model from 'flarum/Model';
 
 import CoverEditorModal from './components/CoverEditorModal';
 
-app.initializers.add('sycho-profile-cover', (app) => {
+app.initializers.add('sycho-profile-cover', () => {
   User.prototype.cover = Model.attribute('cover');
   User.prototype.cover_thumbnail = Model.attribute('cover_thumbnail');
   User.prototype.canSetProfileCover = Model.attribute('canSetProfileCover');
@@ -15,16 +16,14 @@ app.initializers.add('sycho-profile-cover', (app) => {
   extend(UserCard.prototype, 'view', function (view) {
     if (!view.attrs.style || !this.attrs.user.cover()) return;
 
-    let cover = this.attrs.user.cover();
-    let thumbnail = this.attrs.user.cover_thumbnail();
+    let coverUrl = this.attrs.user.cover();
+    let thumbnailUrl = this.attrs.user.cover_thumbnail();
 
-    if (!cover) return;
+    if (!coverUrl) return;
 
-    if (this.attrs.controlsButtonClassName.includes('Button--icon') && thumbnail) {
-      cover = thumbnail;
+    if (this.attrs.controlsButtonClassName.includes('Button--icon') && thumbnailUrl) {
+      coverUrl = thumbnailUrl;
     }
-
-    let coverUrl = app.forum.attribute('baseUrl') + '/assets/covers/' + cover;
 
     view.attrs.style = Object.assign(view.attrs.style, {
       '--background-image': `url(${coverUrl})`,
