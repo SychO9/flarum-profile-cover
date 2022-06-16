@@ -50,7 +50,7 @@ class UserCoverRelationship
         $local = $this->coversDir instanceof Local;
 
         return [
-            'cover' => $local ? $this->paths->public . '/assets/covers/' . $user->cover : $this->coversDir->url($user->cover),
+            'cover' => $user->cover ? ($local ? $this->paths->public . '/assets/covers/' . $user->cover : $this->coversDir->url($user->cover)) : $user->cover,
             'cover_thumbnail' => $this->thumbnailName($user->cover, $local),
             'canSetProfileCover' => $serializer->getActor()->can('setProfileCover', $user),
         ];
