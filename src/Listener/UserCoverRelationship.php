@@ -14,7 +14,6 @@ namespace SychO\ProfileCover\Listener;
 use Flarum\Foundation\Paths;
 use Flarum\Api\Serializer\UserSerializer;
 use Flarum\User\User;
-use Illuminate\Contracts\Filesystem\Local;
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Contracts\Filesystem\Filesystem;
 
@@ -46,11 +45,9 @@ class UserCoverRelationship
      */
     public function __invoke(UserSerializer $serializer, User $user): array
     {
-        $local = $this->coversDir instanceof Local;
-
         return [
-            'cover' => $user->cover ? ($local ? $this->paths->public . '/assets/covers/' . $user->cover : $this->coversDir->url($user->cover)) : $user->cover,
-            'cover_thumbnail' => $this->thumbnailUrl($user->cover, $local),
+            'cover' => $user->cover ? $this->coversDir->url($user->cover) : $user->cover,
+            'cover_thumbnail' => $this->thumbnailUrl($user->cover),
             'canSetProfileCover' => $serializer->getActor()->can('setProfileCover', $user),
         ];
     }
@@ -60,12 +57,12 @@ class UserCoverRelationship
      * @param bool $local
      * @return string|null
      */
-    public function thumbnailUrl(?string $imageName, bool $local)
+    public function thumbnailUrl(?string $imageName)
     {
         $thumbnailName = 'thumbnails/' . $imageName;
 
         if ($this->coversDir->exists($thumbnailName) && !empty($imageName)) {
-            return $local ? $this->paths->public . '/assets/covers/' . $thumbnailName : $this->coversDir->url($thumbnailName);
+            return $this->coversDir->url($thumbnailName);
         }
 
         return null;
