@@ -14,7 +14,6 @@ namespace SychO\ProfileCover;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\AvatarValidator;
 use Illuminate\Validation\Factory;
-use Illuminate\Contracts\Events\Dispatcher;
 use Intervention\Image\ImageManager;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -40,6 +39,8 @@ class CoverValidator extends AvatarValidator
      */
     public function assertValid(array $attributes)
     {
+        $this->laravelValidator = $this->makeValidator($attributes);
+
         $this->assertFileRequired($attributes['cover']);
         $this->assertFileMimes($attributes['cover']);
         $this->assertFileSize($attributes['cover']);
