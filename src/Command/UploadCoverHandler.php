@@ -70,7 +70,7 @@ class UploadCoverHandler
 
         $this->validator->assertValid(['cover' => $command->file]);
 
-        $image = (new ImageManager)->make($command->file->getStream());
+        $image = (new ImageManager)->make($command->file->getStream()->getMetadata('uri'));
 
         $this->events->dispatch(
             new CoverSaving($user, $actor, $image)
