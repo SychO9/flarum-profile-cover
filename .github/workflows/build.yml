@@ -11,7 +11,7 @@ jobs:
       enable_typescript: false
 
       frontend_directory: ./js
-      backend_directory: ./src
+      backend_directory: ./
       js_package_manager: yarn
       main_git_branch: master
     secrets:
