@@ -58,12 +58,11 @@ class UserCoverRelationship
      */
     public function thumbnailUrl(?string $imageName)
     {
-        $thumbnailName = 'thumbnails/' . $imageName;
-
-        if ($this->coversDir->exists($thumbnailName) && !empty($imageName)) {
-            return $this->coversDir->url($thumbnailName);
+        if (empty($imageName) {
+            return null;
         }
-
-        return null;
+            
+        $thumbnailName = 'thumbnails/' . $imageName;
+        return $this->coversDir->url($thumbnailName);
     }
 }
