@@ -58,7 +58,7 @@ class UserCoverRelationship
      */
     public function thumbnailUrl(?string $imageName)
     {
-        if (empty($imageName) {
+        if (empty($imageName)) {
             return null;
         }
             
