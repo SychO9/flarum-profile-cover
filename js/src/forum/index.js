@@ -5,6 +5,7 @@ import UserCard from 'flarum/components/UserCard';
 import UserControls from 'flarum/utils/UserControls';
 import Button from 'flarum/components/Button';
 import Model from 'flarum/Model';
+import classList from 'flarum/common/utils/classList';
 
 import CoverEditorModal from './components/CoverEditorModal';
 
@@ -24,6 +25,8 @@ app.initializers.add('sycho-profile-cover', () => {
     if (this.attrs.controlsButtonClassName.includes('Button--icon') && thumbnailUrl) {
       coverUrl = thumbnailUrl;
     }
+
+    view.attrs.className = classList(view.attrs.className, 'UserCard--hasCoverImage');
 
     view.attrs.style = Object.assign(view.attrs.style, {
       '--background-image': `url(${coverUrl})`,
