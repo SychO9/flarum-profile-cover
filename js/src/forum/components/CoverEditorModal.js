@@ -1,3 +1,4 @@
+import Form from 'flarum/common/components/Form';
 import app from 'flarum/forum/app';
 import Modal from 'flarum/components/Modal';
 import Button from 'flarum/components/Button';
@@ -35,7 +36,7 @@ export default class CoverEditorModal extends Modal {
       </div>,
 
       <div className="Modal-body">
-        <div className="Form">{this.fieldsItems().toArray()}</div>
+        <Form>{this.fieldsItems().toArray()}</Form>
       </div>,
     ];
   }

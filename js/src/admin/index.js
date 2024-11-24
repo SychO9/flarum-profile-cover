@@ -3,7 +3,7 @@ import withAttr from 'flarum/common/utils/withAttr';
 import formatBytes from '../common/formatBytes';
 
 app.initializers.add('sycho-profile-cover', () => {
-  app.extensionData
+  app.registry
     .for('sycho-profile-cover')
     .registerSetting({
       setting: 'sycho-profile-cover.thumbnails',
