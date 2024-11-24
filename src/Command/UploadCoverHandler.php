@@ -11,10 +11,10 @@
 
 namespace SychO\ProfileCover\Command;
 
+use Flarum\User\User;
 use SychO\ProfileCover\CoverUploader;
 use SychO\ProfileCover\CoverValidator;
 use SychO\ProfileCover\Event\CoverSaving;
-use Flarum\Foundation\Application;
 use Flarum\Foundation\DispatchEventsTrait;
 use Flarum\User\UserRepository;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -24,43 +24,16 @@ class UploadCoverHandler
 {
     use DispatchEventsTrait;
 
-    /**
-     * @var \Flarum\User\UserRepository
-     */
-    protected $users;
-
-    /**
-     * @var CoverUploader
-     */
-    protected $uploader;
-
-    /**
-     * @var CoverValidator
-     */
-    protected $validator;
-
-    /**
-     * @param Dispatcher $events
-     * @param UserRepository $users
-     * @param Application $app
-     * @param CoverUploader $uploader
-     * @param CoverValidator $validator
-     */
-    public function __construct(Dispatcher $events, UserRepository $users, CoverUploader $uploader, CoverValidator $validator)
-    {
-        $this->events = $events;
-        $this->users = $users;
-        $this->uploader = $uploader;
-        $this->validator = $validator;
+    public function __construct(
+        protected Dispatcher $events,
+        protected UserRepository $users,
+        protected CoverUploader $uploader,
+        protected CoverValidator $validator,
+        protected ImageManager $imageManager
+    ) {
     }
 
-    /**
-     * @param UploadCover $command
-     * @return \Flarum\User\User
-     * @throws \Flarum\User\Exception\PermissionDeniedException
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function handle(UploadCover $command)
+    public function handle(UploadCover $command): User
     {
         $actor = $command->actor;
 
@@ -70,7 +43,7 @@ class UploadCoverHandler
 
         $this->validator->assertValid(['cover' => $command->file]);
 
-        $image = (new ImageManager)->make($command->file->getStream()->getMetadata('uri'));
+        $image = $this->imageManager->read($command->file->getStream()->getMetadata('uri'));
 
         $this->events->dispatch(
             new CoverSaving($user, $actor, $image)

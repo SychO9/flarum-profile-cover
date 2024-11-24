@@ -21,25 +21,11 @@ class DeleteCoverHandler
     use DispatchEventsTrait;
 
     /**
-     * @var UserRepository
-     */
-    protected $users;
-
-    /**
-     * @var CoverUploader
-     */
-    protected $uploader;
-
-    /**
      * @param Dispatcher $events
-     * @param UserRepository $users
-     * @param CoverUploader $uploader
      */
-    public function __construct(Dispatcher $events, UserRepository $users, CoverUploader $uploader)
+    public function __construct(Dispatcher $events, protected UserRepository $users, protected CoverUploader $uploader)
     {
         $this->events = $events;
-        $this->users = $users;
-        $this->uploader = $uploader;
     }
 
     /**

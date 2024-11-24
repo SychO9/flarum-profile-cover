@@ -20,21 +20,12 @@ use Illuminate\Contracts\Filesystem\Filesystem;
 class UserCoverRelationship
 {
     /**
-     * @var \Flarum\Foundation\Paths
-     */
-    protected $paths;
-
-    /**
      * @var Filesystem
      */
     protected $coversDir;
 
-    /**
-     * @param \Flarum\Foundation\Paths $paths
-     */
-    public function __construct(Paths $paths, Factory $filesystem)
+    public function __construct(protected Paths $paths, Factory $filesystem)
     {
-        $this->paths = $paths;
         $this->coversDir = $filesystem->disk('sycho-profile-cover');
     }
 
@@ -61,7 +52,7 @@ class UserCoverRelationship
         if (empty($imageName)) {
             return null;
         }
-            
+
         $thumbnailName = 'thumbnails/' . $imageName;
         return $this->coversDir->url($thumbnailName);
     }

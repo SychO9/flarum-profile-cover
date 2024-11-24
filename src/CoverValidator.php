@@ -12,32 +12,23 @@
 namespace SychO\ProfileCover;
 
 use Flarum\Settings\SettingsRepositoryInterface;
+use Flarum\Locale\TranslatorInterface;
 use Flarum\User\AvatarValidator;
 use Illuminate\Validation\Factory;
 use Intervention\Image\ImageManager;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CoverValidator extends AvatarValidator
 {
-    /**
-     * @var SettingsRepositoryInterface
-     */
-    protected $config;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function __construct(Factory $validator, TranslatorInterface $translator, ImageManager $imageManager, SettingsRepositoryInterface $config)
-    {
+    public function __construct(
+        Factory $validator,
+        TranslatorInterface $translator,
+        ImageManager $imageManager,
+        protected SettingsRepositoryInterface $config
+    ) {
         parent::__construct($validator, $translator, $imageManager);
-
-        $this->config = $config;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function assertValid(array $attributes)
+    public function assertValid(array $attributes): void
     {
         $this->laravelValidator = $this->makeValidator($attributes);
 
@@ -46,18 +37,12 @@ class CoverValidator extends AvatarValidator
         $this->assertFileSize($attributes['cover']);
     }
 
-    /**
-     * @return int
-     */
-    protected function getMaxSize()
+    protected function getMaxSize(): int
     {
         return (int) ($this->config->get('sycho-profile-cover.max_size') ?? 2048);
     }
 
-    /**
-     * @return string[]
-     */
-    protected function getAllowedTypes()
+    protected function getAllowedTypes(): array
     {
         return ['jpeg', 'jpg', 'png', 'bmp'];
     }

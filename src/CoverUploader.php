@@ -25,25 +25,12 @@ class CoverUploader
      */
     protected $coversDir;
 
-    /**
-     * @var SettingsRepositoryInterface
-     */
-    protected $config;
-
-    /**
-     * @param FilesystemInterface $coversDir
-     */
-    public function __construct(Factory $filesystem, SettingsRepositoryInterface $config)
+    public function __construct(Factory $filesystem, protected SettingsRepositoryInterface $config)
     {
         $this->coversDir = $filesystem->disk('sycho-profile-cover');
-        $this->config = $config;
     }
 
-    /**
-     * @param User $user
-     * @param Image $image
-     */
-    public function upload(User $user, Image $image)
+    public function upload(User $user, Image $image): void
     {
         $makeThumb = $this->config->get('sycho-profile-cover.thumbnails', 0) == 1;
 
@@ -79,10 +66,7 @@ class CoverUploader
         $this->coversDir->put($coverPath, $encodedImage);
     }
 
-    /**
-     * @param User $user
-     */
-    public function remove(User $user)
+    public function remove(User $user): void
     {
         $coverPath = $user->cover;
 
