@@ -20,10 +20,7 @@ use Flarum\Settings\SettingsRepositoryInterface;
 
 class CoverUploader
 {
-    /**
-     * @var Filesystem
-     */
-    protected $coversDir;
+    protected Filesystem $coversDir;
 
     public function __construct(Factory $filesystem, protected SettingsRepositoryInterface $config)
     {
@@ -34,17 +31,11 @@ class CoverUploader
     {
         $makeThumb = $this->config->get('sycho-profile-cover.thumbnails', 0) == 1;
 
-        if (extension_loaded('exif')) {
-            $image->orientate();
-        }
-
         if ($image->width() > 2500) {
-            $image->resize(2500, null, function($constraint) {
-                $constraint->aspectRatio();
-            });
+            $image->scale(2500);
         }
 
-        $encodedImage = $image->encode('jpg');
+        $encodedImage = $image->toJpg();
         $coverPath = Str::random() . '.jpg';
 
         $this->remove($user);
@@ -54,11 +45,8 @@ class CoverUploader
             $thumbnail = clone $image;
             $thumbnailPath = 'thumbnails/' . $coverPath;
 
-            $thumbnail->resize(500, null, function($constraint) {
-                $constraint->aspectRatio();
-            });
-            $thumbnail->crop(500, 144);
-            $encodedThumbnail = $thumbnail->encode('jpg');
+            $thumbnail->scale(500)->crop(500, 144);
+            $encodedThumbnail = $thumbnail->toJpg();
 
             $this->coversDir->put($thumbnailPath, $encodedThumbnail);
         }

@@ -9,45 +9,37 @@
  * LICENSE file that was distributed with this source code.
  */
 
-namespace SychO\ProfileCover\Listener;
+namespace SychO\ProfileCover\Api;
 
+use Flarum\Api\Context;
+use Flarum\Api\Schema;
 use Flarum\Foundation\Paths;
-use Flarum\Api\Serializer\UserSerializer;
 use Flarum\User\User;
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Contracts\Filesystem\Filesystem;
 
-class UserCoverRelationship
+class UserResourceFields
 {
-    /**
-     * @var Filesystem
-     */
-    protected $coversDir;
+    protected Filesystem $coversDir;
 
     public function __construct(protected Paths $paths, Factory $filesystem)
     {
         $this->coversDir = $filesystem->disk('sycho-profile-cover');
     }
 
-    /**
-     * @param UserSerializer $serializer
-     * @param User $user
-     * @return array
-     */
-    public function __invoke(UserSerializer $serializer, User $user): array
+    public function __invoke(): array
     {
         return [
-            'cover' => $user->cover ? $this->coversDir->url($user->cover) : $user->cover,
-            'cover_thumbnail' => $this->thumbnailUrl($user->cover),
-            'canSetProfileCover' => $serializer->getActor()->can('setProfileCover', $user),
+            Schema\Str::make('cover')
+                ->get(fn (User $user) => $user->cover ? $this->coversDir->url($user->cover) : $user->cover),
+            Schema\Str::make('cover_thumbnail')
+                ->get(fn (User $user) => $this->thumbnailUrl($user->cover)),
+            Schema\Boolean::make('canSetProfileCover')
+                ->get(fn (User $user, Context $context) => $context->getActor()->can('setProfileCover', $user)),
         ];
     }
 
-    /**
-     * @param string|null $imageName
-     * @return string|null
-     */
-    public function thumbnailUrl(?string $imageName)
+    public function thumbnailUrl(?string $imageName): ?string
     {
         if (empty($imageName)) {
             return null;
