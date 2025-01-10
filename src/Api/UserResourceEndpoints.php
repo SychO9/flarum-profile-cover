@@ -29,7 +29,7 @@ class UserResourceEndpoints
                     );
                 }),
             Endpoint\Endpoint::make('cover.delete')
-                ->route('DELETE', '/{id}/avatar')
+                ->route('DELETE', '/{id}/cover')
                 ->action(function (Context $context) {
                     return $this->bus->dispatch(
                         new DeleteCover(Arr::get($context->request->getQueryParams(), 'id'), $context->getActor())

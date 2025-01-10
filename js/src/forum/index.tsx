@@ -1,19 +1,15 @@
 import app from 'flarum/forum/app';
-import { extend } from 'flarum/extend';
-import User from 'flarum/models/User';
-import UserCard from 'flarum/components/UserCard';
-import UserControls from 'flarum/utils/UserControls';
-import Button from 'flarum/components/Button';
-import Model from 'flarum/Model';
-
+import { extend } from 'flarum/common/extend';
+import UserCard from 'flarum/forum/components/UserCard';
+import UserControls from 'flarum/forum/utils/UserControls';
+import Button from 'flarum/common/components/Button';
+import type Mithril from 'mithril';
 import CoverEditorModal from './components/CoverEditorModal';
 
-app.initializers.add('sycho-profile-cover', () => {
-  User.prototype.cover = Model.attribute('cover');
-  User.prototype.cover_thumbnail = Model.attribute('cover_thumbnail');
-  User.prototype.canSetProfileCover = Model.attribute('canSetProfileCover');
+export { default as extend } from './extend';
 
-  extend(UserCard.prototype, 'view', function (view) {
+app.initializers.add('sycho-profile-cover', () => {
+  extend(UserCard.prototype, 'view', function (view: Mithril.Vnode) {
     if (!view.attrs.style || !this.attrs.user.cover()) return;
 
     let coverUrl = this.attrs.user.cover();

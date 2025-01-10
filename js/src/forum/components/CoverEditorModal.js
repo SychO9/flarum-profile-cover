@@ -1,9 +1,9 @@
 import Form from 'flarum/common/components/Form';
 import app from 'flarum/forum/app';
-import Modal from 'flarum/components/Modal';
-import Button from 'flarum/components/Button';
-import ItemList from 'flarum/utils/ItemList';
-import LoadingIndicator from 'flarum/components/LoadingIndicator';
+import Modal from 'flarum/common/components/Modal';
+import Button from 'flarum/common/components/Button';
+import ItemList from 'flarum/common/utils/ItemList';
+import LoadingIndicator from 'flarum/common/components/LoadingIndicator';
 import formatBytes from '../../common/formatBytes';
 
 export default class CoverEditorModal extends Modal {
@@ -36,7 +36,7 @@ export default class CoverEditorModal extends Modal {
       </div>,
 
       <div className="Modal-body">
-        <Form>{this.fieldsItems().toArray()}</Form>
+        <Form className="Form--centered">{this.fieldsItems().toArray()}</Form>
       </div>,
     ];
   }
@@ -62,14 +62,14 @@ export default class CoverEditorModal extends Modal {
 
     items.add(
       'upload',
-      <Button icon="fas fa-upload" className="Button" onclick={this.openPicker.bind(this)}>
+      <Button icon="fas fa-upload" className="Button Button--block Button--primary" onclick={this.openPicker.bind(this)}>
         {app.translator.trans('core.forum.user.avatar_upload_button')}
       </Button>
     );
 
     items.add(
       'remove',
-      <Button icon="fas fa-times" className="Button" onclick={this.remove.bind(this)}>
+      <Button icon="fas fa-times" className="Button Button--block" onclick={this.remove.bind(this)}>
         {app.translator.trans('core.forum.user.avatar_remove_button')}
       </Button>
     );
